@@ -333,6 +333,7 @@
   .foot-meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:60px;border-top:2px solid var(--ink);padding-top:20px;font-family:var(--sans);font-size:13px;color:var(--muted)}
   .made{font-family:var(--sans);font-size:12.5px;color:var(--faint);margin-top:26px;max-width:64ch}
 
+  [id]{scroll-margin-top:70px}
   /* reveal */
   .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
   .rv.in{opacity:1;transform:none}
@@ -351,6 +352,7 @@
   <div class="nav-in">
     <a class="monogram" href="index.html" title="Back to the front page">Zameer <b>Ali</b></a>
     <div class="nav-links">
+      <a href="index.html" style="color:var(--accent);font-weight:700">← Home</a>
       <a href="#cs1">01 Licensing</a>
       <a href="#cs2">02 Language</a>
       <a href="#cs3">03 Guardrails</a>
@@ -1076,6 +1078,26 @@
   var rb=document.getElementById('rewriteBtn'),ub=document.getElementById('unrewriteBtn');
   if(rb){rb.addEventListener('click',function(){demo.classList.add('rewritten');});}
   if(ub){ub.addEventListener('click',function(){demo.classList.remove('rewritten');});}
+})();
+</script>
+<script>
+(function(){
+  if(!location.hash) return;
+  var id=location.hash.slice(1), userMoved=false;
+  ['wheel','touchstart','keydown'].forEach(function(ev){
+    window.addEventListener(ev,function(){userMoved=true},{passive:true,once:true});
+  });
+  function go(){
+    if(userMoved) return;
+    var el=document.getElementById(id);
+    if(el){ var y=el.getBoundingClientRect().top + window.pageYOffset - 66;
+      window.scrollTo({top:y,behavior:'instant'});
+      window.dispatchEvent(new Event('scroll')); }
+  }
+  go();
+  document.addEventListener('DOMContentLoaded',go);
+  window.addEventListener('load',function(){ go(); setTimeout(go,300); setTimeout(function(){ go(); if(window.ScrollTrigger){try{ScrollTrigger.refresh()}catch(e){}} },900); });
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){setTimeout(go,50)});}
 })();
 </script>
 </body>
