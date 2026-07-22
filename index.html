@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zameer Ali — Words that do the work</title>
+<style>
+  :root{
+    --ink:#161b20; --muted:#59636c; --faint:#8a939b; --accent:#0e5a63; --accent-soft:#e7f0f1;
+    --rule:#dcE1e5; --bad:#a33b2e; --bad-soft:#f7ece9; --good:#24512e; --good-soft:#eaf2ec;
+    --paper:#faf6ef; --paper-rule:#e7dfd2;
+    --night:#14181d; --night-2:#1b2129; --night-text:#e8ebee; --night-muted:#9aa5ae; --night-accent:#7cc7d0; --night-rule:#2a323b;
+    --serif:Georgia,'Times New Roman',serif;
+    --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--serif);color:var(--ink);background:#fff;line-height:1.65;font-size:17px;overflow-x:hidden}
+  ::selection{background:var(--accent);color:#fff}
+  a{color:var(--accent)}
+  .sans{font-family:var(--sans)}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;z-index:999}
+  .skip:focus{left:10px}
+
+  /* ---------- nav ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:90;mix-blend-mode:normal;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);transition:background .4s,border-color .4s}
+  body.in-night nav{background:rgba(20,24,29,.92);border-bottom-color:var(--night-rule)}
+  .nav-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:14px 28px}
+  .monogram{font-family:var(--serif);font-size:19px;color:var(--ink);text-decoration:none;transition:color .4s}
+  .monogram b{color:var(--accent);font-weight:400;font-style:italic}
+  body.in-night .monogram{color:var(--night-text)}
+  .nav-links{margin-left:auto;display:flex;gap:20px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .nav-links a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s}
+  .nav-links a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  body.in-night .nav-links a{color:var(--night-muted)}
+  body.in-night .nav-links a:hover{color:var(--night-accent);border-bottom-color:var(--night-accent)}
+  #progress{position:absolute;bottom:-1px;left:0;height:2px;background:var(--accent);width:0%}
+  @media(max-width:760px){.nav-links a:nth-child(n+4){display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;max-width:1200px;margin:0 auto;padding:120px 28px 40px;position:relative}
+  .kicker{font-family:var(--sans);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .hero h1{font-size:clamp(52px,10.5vw,150px);font-weight:400;letter-spacing:-.03em;line-height:.98;margin:26px 0 8px}
+  .hero h1 .ital{font-style:italic;color:var(--accent)}
+  .hero h1 .word{display:inline-block;opacity:0;transform:translateY(.45em) rotate(1.5deg);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .hero h1 .word.in{opacity:1;transform:none}
+  .editline{font-size:clamp(18px,2.4vw,26px);font-style:italic;color:var(--muted);min-height:2.4em;max-width:36em;margin-top:26px}
+  .editline .strike{text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2px;color:var(--faint)}
+  .editline .fix{color:var(--ink)}
+  .editline .caret{display:inline-block;width:2px;height:1em;background:var(--accent);vertical-align:-.15em;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .edit-note{font-family:var(--sans);font-size:13px;color:var(--faint);margin-top:10px;opacity:0;transition:opacity .8s}
+  .edit-note.show{opacity:1}
+  .scroll-cue{position:absolute;bottom:26px;left:28px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+  /* ---------- marquee ---------- */
+  .marquee{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);overflow:hidden;white-space:nowrap;padding:14px 0;background:#fff}
+  .marquee .track{display:inline-block;animation:mq 42s linear infinite;font-family:var(--sans);font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .marquee .track b{color:var(--accent);font-weight:600}
+  @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .marquee:hover .track{animation-play-state:paused}
+
+  /* ---------- stats ---------- */
+  .stats{max-width:1200px;margin:0 auto;padding:70px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px 40px}
+  @media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat .n{font-size:clamp(38px,5vw,64px);letter-spacing:-.02em;line-height:1;color:var(--ink)}
+  .stat .n em{font-style:normal;color:var(--accent)}
+  .stat .l{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:8px;letter-spacing:.04em;max-width:22em}
+
+  /* ---------- chapters shared ---------- */
+  section.ch{position:relative;padding:110px 0 90px}
+  .ch-in{max-width:1200px;margin:0 auto;padding:0 28px;position:relative}
+  .bignum{position:absolute;top:-40px;right:-10px;font-size:clamp(160px,26vw,380px);line-height:1;font-weight:400;color:transparent;-webkit-text-stroke:1.5px var(--rule);z-index:0;user-select:none;pointer-events:none}
+  .ch h2{font-size:clamp(34px,5.4vw,68px);font-weight:400;letter-spacing:-.02em;line-height:1.08;max-width:16em;position:relative;z-index:1}
+  .ch .meta{font-family:var(--sans);font-size:13px;color:var(--muted);margin:18px 0 0;padding-bottom:22px;border-bottom:2px solid var(--ink);position:relative;z-index:1}
+  h4{font-family:var(--sans);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:34px 0 10px;font-weight:700;position:relative;z-index:1}
+  .prose{max-width:66ch;position:relative;z-index:1}
+  .prose p{margin-bottom:14px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:44px;position:relative;z-index:1}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 4px}
+  .pill{font-family:var(--sans);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent-soft);color:var(--accent);padding:4px 11px;border-radius:20px;font-weight:600}
+  .pull{border-left:3px solid var(--accent);padding:4px 0 4px 18px;margin:20px 0;font-style:italic;color:var(--muted);font-size:19px;max-width:30em}
+  .lesson{font-size:clamp(22px,3vw,32px);font-style:italic;line-height:1.35;max-width:26em;margin:44px auto 0;text-align:center;color:var(--ink);position:relative;z-index:1}
+  .lesson .who{display:block;font-family:var(--sans);font-style:normal;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:14px}
+
+  /* exhibits */
+  .exhibit{border:1px solid var(--rule);border-radius:12px;padding:22px 24px;margin:28px 0;background:#fcfcfd;position:relative;z-index:1}
+  .exhibit-label{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:12px}
+  .exhibit-label b{color:var(--accent)}
+  table.ba{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:14px}
+  table.ba th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:6px 12px 6px 0;border-bottom:1px solid var(--rule);font-weight:700}
+  table.ba td{vertical-align:top;padding:12px 14px 12px 0;border-bottom:1px solid #eceff1;line-height:1.5}
+  table.ba tr:last-child td{border-bottom:none}
+  td.lbl{font-weight:700;white-space:nowrap}
+  .q{display:inline-block;padding:3px 8px;border-radius:5px}
+  .q-bad{background:var(--bad-soft);color:var(--bad)}
+  .q-good{background:var(--good-soft);color:var(--good)}
+  .why{color:var(--muted);font-size:13px}
+  .fixable .aftercell{transition:opacity .5s,filter .5s}
+  .fixable.hidden-after .aftercell{opacity:.06;filter:blur(4px);pointer-events:none}
+  .fixbtn{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:6px;padding:10px 18px;cursor:pointer;margin-top:14px}
+  .fixbtn:hover{background:#0b4850}
+  .fixbtn.done{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+  details{border:1px solid var(--rule);border-radius:8px;margin:8px 0;background:#fff}
+  details summary{cursor:pointer;padding:12px 16px;font-family:var(--sans);font-size:14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";color:var(--accent);font-size:18px}
+  details[open] summary::after{content:"–"}
+  details .d-body{padding:0 16px 14px;font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.6}
+  .mock{font-family:var(--sans);background:#fff;border:1px solid #cfd6da;border-radius:14px;padding:20px 22px;box-shadow:0 8px 30px rgba(20,30,40,.08);max-width:440px}
+  .mock h5{font-size:15px;font-weight:700;margin-bottom:8px}
+  .mock p{font-size:13px;color:#3d454c;line-height:1.55;margin-bottom:6px}
+  .mock .sec{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:12px 0 4px}
+  .btn-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .btn{font-size:13px;font-weight:600;padding:9px 14px;border-radius:6px}
+  .btn.primary{background:var(--ink);color:#fff}
+  .btn.secondary{border:1.5px solid var(--ink);color:var(--ink)}
+  .mock .note{font-size:11.5px;color:var(--faint);margin-top:10px}
+  .caption{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:10px;line-height:1.55;max-width:60ch}
+  .tax{display:flex;gap:12px;margin:14px 0 8px;flex-wrap:wrap}
+  .tax .space{flex:1;min-width:150px;border:1.5px solid var(--accent);border-radius:12px;padding:16px;text-align:center;background:#fff}
+  .tax .verb{font-family:var(--sans);font-weight:700;font-size:17px;color:var(--accent)}
+  .tax .does{font-size:14px;color:var(--muted);font-style:italic;margin-top:3px}
+  .tax .scope{font-family:var(--sans);font-size:11px;margin-top:8px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  .tax-sentence{text-align:center;font-style:italic;margin-top:12px}
+  .outcomes{background:var(--accent-soft);border-radius:12px;padding:20px 26px;margin-top:28px;max-width:780px;position:relative;z-index:1}
+  .outcomes h4{margin-top:0}
+  .outcomes ul{margin:4px 0 0 18px}
+  .outcomes li{margin-bottom:7px;font-size:15.5px}
+
+  /* chapter 2 paper theme */
+  .ch-paper{background:var(--paper)}
+  .ch-paper .exhibit{background:#fffdf8;border-color:var(--paper-rule)}
+  .ch-paper .bignum{-webkit-text-stroke-color:var(--paper-rule)}
+  .ch-paper details{background:#fffdf8;border-color:var(--paper-rule)}
+  .ch-paper .mock{background:#fffdf8}
+  .ch-paper .tax .space{background:#fffdf8}
+
+  /* chapter 3 night theme */
+  .ch-night{background:var(--night);color:var(--night-text)}
+  .ch-night .ch h2,.ch-night h2{color:var(--night-text)}
+  .ch-night .meta{color:var(--night-muted);border-bottom-color:var(--night-accent)}
+  .ch-night h4{color:var(--night-accent)}
+  .ch-night .prose{color:var(--night-text)}
+  .ch-night .prose p,.ch-night .why{color:#c3ccd3}
+  .ch-night .bignum{-webkit-text-stroke-color:var(--night-rule)}
+  .ch-night .pill{background:#20303a;color:var(--night-accent)}
+  .ch-night .pull{border-left-color:var(--night-accent);color:var(--night-muted)}
+  .ch-night .exhibit{background:var(--night-2);border-color:var(--night-rule)}
+  .ch-night .exhibit-label{color:var(--night-muted)}
+  .ch-night .exhibit-label b{color:var(--night-accent)}
+  .ch-night table.ba th{color:var(--night-muted);border-bottom-color:var(--night-rule)}
+  .ch-night table.ba td{border-bottom-color:var(--night-rule);color:#c3ccd3}
+  .ch-night td.lbl{color:var(--night-text)}
+  .ch-night .q-bad{background:#3a2420;color:#e8a79b}
+  .ch-night .q-good{background:#1e3226;color:#a6d8b2}
+  .ch-night .fixbtn{background:var(--night-accent);color:var(--night)}
+  .ch-night .fixbtn.done{background:transparent;color:var(--night-accent);border-color:var(--night-accent)}
+  .ch-night .outcomes{background:#1c2830}
+  .ch-night .outcomes li{color:#c3ccd3}
+  .ch-night .lesson{color:var(--night-text)}
+  .ch-night .lesson .who{color:var(--night-muted)}
+  .demo{border:1.5px solid var(--night-accent);border-radius:14px;padding:24px;margin:30px 0;background:var(--night-2);position:relative;z-index:1}
+  .demo .msgcard{font-family:var(--sans);background:var(--night);border:1px solid var(--night-rule);border-radius:10px;padding:16px 18px;font-size:14.5px;line-height:1.6;max-width:580px;color:#c3ccd3}
+  .demo mark{background:#3a2420;color:#e8a79b;padding:1px 4px;border-radius:4px;cursor:pointer;border-bottom:1.5px dashed #e8a79b}
+  .demo mark.seen{opacity:.75}
+  .annot{font-family:var(--sans);font-size:13.5px;color:var(--night-muted);min-height:2.6em;margin-top:12px;max-width:580px}
+  .annot b{color:#e8a79b}
+  .demo .final{display:none}
+  .demo.rewritten .initial{display:none}
+  .demo.rewritten .final{display:block}
+  .demo .final .msgcard{border-color:var(--night-accent)}
+  .demo .final .msgcard em{background:#1e3226;color:#a6d8b2;font-style:normal;padding:1px 4px;border-radius:4px}
+  .demo .annot .ok{color:#a6d8b2}
+
+  /* filter bar */
+  .filterwrap{max-width:1200px;margin:0 auto;padding:0 28px 8px}
+  .filterwrap .fq{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:12px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-family:var(--sans);font-size:13px;font-weight:600;padding:8px 16px;border-radius:24px;border:1.5px solid var(--rule);background:#fff;color:var(--muted);cursor:pointer;transition:all .25s}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .fstatus{font-style:italic;font-size:16px;color:var(--ink);margin-top:16px;min-height:1.5em}
+  [data-t].fhide{display:none !important}
+
+  /* chapter index cards */
+  .chapters{max-width:1200px;margin:0 auto;padding:20px 28px 90px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.chapters{grid-template-columns:1fr}}
+  .chcard{border:1px solid var(--rule);border-radius:14px;padding:28px 26px;text-decoration:none;color:var(--ink);display:block;transition:transform .3s,box-shadow .3s,border-color .3s;background:#fff;position:relative;overflow:hidden}
+  .chcard:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 16px 40px rgba(14,60,70,.1)}
+  .chcard .n{font-size:15px;color:var(--accent)}
+  .chcard h3{font-size:21px;font-weight:400;margin:10px 0 8px;line-height:1.3;letter-spacing:-.01em}
+  .chcard p{font-family:var(--sans);font-size:13.5px;color:var(--muted);line-height:1.55}
+  .chcard .go{font-family:var(--sans);font-size:12px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-top:16px;display:inline-block}
+  .chcard.night{background:var(--night);color:var(--night-text);border-color:var(--night)}
+  .chcard.night p{color:var(--night-muted)}
+  .chcard.night .n,.chcard.night .go{color:var(--night-accent)}
+  .chcard.paper{background:var(--paper);border-color:var(--paper-rule)}
+
+  /* further studies */
+  .studies{max-width:1200px;margin:0 auto;padding:100px 28px 80px}
+  .studies h2{font-size:clamp(34px,5vw,60px);font-weight:400;letter-spacing:-.02em}
+  .studies .sub{font-family:var(--sans);color:var(--muted);font-size:14px;margin-top:10px;max-width:58ch}
+  .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
+  @media(max-width:860px){.sgrid{grid-template-columns:1fr}}
+  .study{border:1px solid var(--rule);border-radius:14px;padding:26px;background:#fcfcfd}
+  .study .n{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .study h3{font-size:clamp(21px,2.6vw,27px);font-weight:400;letter-spacing:-.01em;line-height:1.25;margin:10px 0 10px}
+  .study .lede{font-size:15.5px;color:var(--ink);margin-bottom:12px}
+  .study ul{margin:0 0 12px 18px;font-family:var(--sans);font-size:13.5px;color:var(--muted);line-height:1.6}
+  .study ul li{margin-bottom:6px}
+  .study .slesson{font-style:italic;color:var(--muted);font-size:14.5px;border-left:3px solid var(--accent);padding-left:12px;margin:12px 0 4px}
+  .study details{margin-top:12px}
+
+  /* the stack */
+  .stack{background:var(--paper);padding:110px 0}
+  .stack h2{font-size:clamp(34px,5.4vw,64px);font-weight:400;letter-spacing:-.02em;line-height:1.08;max-width:15em}
+  .stack h2 em{font-style:italic;color:var(--accent)}
+  .stack .sub{font-family:var(--sans);color:var(--muted);font-size:14.5px;margin-top:14px;max-width:60ch}
+  .layers{margin-top:50px}
+  .layer{display:grid;grid-template-columns:110px 210px 1fr;gap:20px;padding:22px 0;border-top:1px solid var(--paper-rule);align-items:baseline}
+  @media(max-width:760px){.layer{grid-template-columns:70px 1fr};.layer .what{grid-column:2}}
+  .layer .yr{font-family:var(--sans);font-size:13px;color:var(--accent);font-weight:700}
+  .layer .verb{font-size:clamp(20px,2.6vw,28px);font-style:italic}
+  .layer .what{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.6;max-width:56ch}
+  .stack .coda{margin-top:40px;font-size:clamp(19px,2.4vw,25px);font-style:italic;max-width:32em;line-height:1.45}
+
+  /* principles */
+  .princ{background:var(--ink);color:#e8ebee;padding:110px 0}
+  .princ .ch-in h2{color:#fff;font-size:clamp(34px,5vw,60px);font-weight:400;letter-spacing:-.02em}
+  .princ .sub{font-family:var(--sans);color:#9aa5ae;font-size:14px;margin-top:10px}
+  .plist{margin-top:50px;counter-reset:pr}
+  .pitem{border-top:1px solid #2a323b;padding:26px 0;display:grid;grid-template-columns:70px 1fr;gap:20px;align-items:baseline}
+  .pitem .pn{font-family:var(--sans);font-size:13px;color:var(--night-accent)}
+  .pitem h3{font-size:clamp(22px,3.2vw,34px);font-weight:400;letter-spacing:-.01em;line-height:1.2}
+  .pitem h3 em{font-style:italic;color:var(--night-accent)}
+  .pitem p{font-family:var(--sans);font-size:14.5px;color:#9aa5ae;margin-top:8px;max-width:56ch;line-height:1.6}
+
+  /* ledger */
+  .ledger{max-width:1200px;margin:0 auto;padding:110px 28px}
+  .ledger h2{font-size:clamp(34px,5vw,60px);font-weight:400;letter-spacing:-.02em}
+  .ledger .sub{font-family:var(--sans);color:var(--muted);font-size:14px;margin-top:10px;max-width:56ch}
+  .lgroup{margin-top:46px}
+  .lgroup h3{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;border-bottom:2px solid var(--ink);padding-bottom:8px}
+  .lrow{display:grid;grid-template-columns:1fr auto;gap:14px;padding:15px 0;border-bottom:1px solid var(--rule);align-items:baseline;transition:background .2s,padding-left .2s}
+  .lrow:hover{background:#f7f9f9;padding-left:8px}
+  .lrow .t{font-size:17px}
+  .lrow .t small{font-family:var(--sans);font-size:12.5px;color:var(--muted);display:block;margin-top:2px}
+  .lrow .y{font-family:var(--sans);font-size:12px;color:var(--faint);white-space:nowrap}
+
+  /* about */
+  .about{background:var(--paper);padding:110px 0}
+  .about .grid2{align-items:start}
+  .about h2{font-size:clamp(34px,5vw,60px);font-weight:400;letter-spacing:-.02em;line-height:1.1}
+  .about h2 em{font-style:italic;color:var(--accent)}
+  .about p{margin-bottom:14px}
+  .about .fact{font-family:var(--sans);font-size:13.5px;color:var(--muted);border-top:1px solid var(--paper-rule);padding:12px 0}
+  .about .fact b{color:var(--ink)}
+
+  footer{background:#fff;padding:90px 0 60px}
+  .foot-big{font-size:clamp(36px,6.5vw,84px);font-weight:400;letter-spacing:-.025em;line-height:1.05;max-width:12em}
+  .foot-big a{color:var(--ink);text-decoration:none;border-bottom:3px solid var(--accent)}
+  .foot-big a:hover{color:var(--accent)}
+  .foot-meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:60px;border-top:2px solid var(--ink);padding-top:20px;font-family:var(--sans);font-size:13px;color:var(--muted)}
+  .made{font-family:var(--sans);font-size:12.5px;color:var(--faint);margin-top:26px;max-width:64ch}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .rv{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+    .editline .caret{animation:none}
+    .marquee .track{animation:none}
+    .hero h1 .word{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav aria-label="Site">
+  <div class="nav-in">
+    <a class="monogram" href="#top">Zameer <b>Ali</b></a>
+    <div class="nav-links">
+      <a href="#cs1">01 Licensing</a>
+      <a href="#cs2">02 Language</a>
+      <a href="#cs3">03 Guardrails</a>
+      <a href="#studies">04–07</a>
+      <a href="#stack">The Stack</a>
+      <a href="#ledger">The Ledger</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div id="progress"></div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="kicker">Zameer Ali · Content Design · 2026</div>
+  <h1 id="heroline" aria-label="Words that do the work.">
+    <span class="word">Words</span> <span class="word">that</span> <span class="word">do</span> <span class="word">the</span> <span class="word ital">work.</span>
+  </h1>
+  <p class="editline" id="editline" aria-label="I make complicated products make sense."><noscript>I make complicated products make sense.</noscript></p>
+  <p class="edit-note" id="editnote">— editing is the job.</p>
+  <div class="scroll-cue">Scroll · seven case studies, one thesis, one ledger, no jargon</div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span> Edit applied · Variations created · Image restored · Image extended · Background removed · <b>Generate now, license later</b> · Focus on color · Focus on composition · disabled, never unavailable · <b>say it once, in the right place</b> · Generate explores ideas · Refine shapes a set · Modify perfects one image · <b>never ship the lab notebook, never hide its conclusions</b> · &nbsp;</span><span> Edit applied · Variations created · Image restored · Image extended · Background removed · <b>Generate now, license later</b> · Focus on color · Focus on composition · disabled, never unavailable · <b>say it once, in the right place</b> · Generate explores ideas · Refine shapes a set · Modify perfects one image · <b>never ship the lab notebook, never hide its conclusions</b> · &nbsp;</span>
+  </div>
+</div>
+
+<main id="main">
+<div class="stats">
+  <div class="stat rv"><div class="n"><em>~6,000</em></div><div class="l">UI terms catalogued across 7 enterprise products to build one canonical glossary</div></div>
+  <div class="stat rv"><div class="n"><em>13</em> / 9</div><div class="l">guardrail messages written for an enterprise AI assistant / shipped in beta</div></div>
+  <div class="stat rv"><div class="n"><em>158</em></div><div class="l">text nodes renamed in a product-line migration where one wrong phrase cost real money</div></div>
+  <div class="stat rv"><div class="n"><em>86</em></div><div class="l">tooltips audited against a reusable keep / rewrite / relocate framework</div></div>
+  <div class="stat rv"><div class="n"><em>46</em></div><div class="l">screens copy-reviewed in one pass — with zero error, empty, or permission states found (and flagged)</div></div>
+  <div class="stat rv"><div class="n"><em>12</em>yrs</div><div class="l">of making complex systems legible: Best Buy → Lemonade → agencies → Shopify → Getty · Samsung · Autodesk</div></div>
+</div>
+
+<div class="filterwrap" id="filter">
+  <div class="fq">What brings you here? Pick a lens — the studies rearrange themselves.</div>
+  <div class="chips" role="group" aria-label="Filter case studies">
+    <button class="chip active" data-f="all">Everything · 7</button>
+    <button class="chip" data-f="featured">Just the highlights · 3</button>
+    <button class="chip" data-f="ai">AI behavior · 5</button>
+    <button class="chip" data-f="trust">Trust &amp; honest language · 4</button>
+    <button class="chip" data-f="gov">Governance &amp; audits · 3</button>
+    <button class="chip" data-f="lang">Language systems &amp; naming · 4</button>
+  </div>
+  <p class="fstatus" id="fstatus" aria-live="polite">All seven. The full syllabus.</p>
+</div>
+
+<div class="chapters">
+  <a class="chcard rv" data-t="ai trust featured" href="#cs1">
+    <div class="n sans">Chapter 01 · Getty Images</div>
+    <h3>Generate now, license later</h3>
+    <p>Trust design for AI reference images on a platform whose entire business is licensing — and why the clearest CTA was still the wrong one.</p>
+    <span class="go">Read →</span>
+  </a>
+  <a class="chcard paper rv" data-t="ai trust lang featured" href="#cs2">
+    <div class="n sans">Chapter 02 · Getty Images</div>
+    <h3>A language system that tells the truth</h3>
+    <p>Three verbs that carry scope, a deliberately robotic vocabulary, and download copy that describes AI instead of selling it.</p>
+    <span class="go">Read →</span>
+  </a>
+  <a class="chcard night rv" data-t="ai trust featured" href="#cs3">
+    <div class="n sans">Chapter 03 · Samsung Knox</div>
+    <h3>The language of no</h3>
+    <p>What a security product's AI says when it refuses, fails, or asks permission. This chapter runs dark — so does the subject.</p>
+    <span class="go">Read →</span>
+  </a>
+  <a class="chcard rv" data-t="gov lang" href="#s04"><div class="n sans">Study 04 · Samsung Knox</div><h3>Six thousand terms, one vocabulary</h3><p>The suite's first complete terminology inventory — and the governance to keep it honest.</p><span class="go">Read →</span></a>
+  <a class="chcard rv" data-t="ai lang" href="#s05"><div class="n sans">Study 05 · Samsung Knox</div><h3>One rule, thirteen responses</h3><p>A design system for an agentic AI — with a runtime contract the model itself is held to.</p><span class="go">Read →</span></a>
+  <a class="chcard rv" data-t="ai gov" href="#s06"><div class="n sans">Study 06 · Autodesk</div><h3>The missing judgment system</h3><p>An LLM-as-judge evaluation framework — and catching the auditor AI hallucinating mid-audit.</p><span class="go">Read →</span></a>
+  <a class="chcard rv" data-t="trust gov lang" href="#s07"><div class="n sans">Study 07 · iStock</div><h3>Renaming without breaking trust</h3><p>158 text nodes, one source of truth, no euphemisms — copy accuracy as risk management.</p><span class="go">Read →</span></a>
+</div>
+
+<!-- ============ CHAPTER 1 ============ -->
+<section class="ch" id="cs1" data-t="ai trust featured">
+  <div class="ch-in">
+    <div class="bignum" aria-hidden="true">01</div>
+    <div class="kicker">Chapter 01 · Getty Images / iStock</div>
+    <h2>Generate now, license later: making AI reference images feel free without hiding the bill</h2>
+    <div class="meta">Sole content designer on the working team · April 2024 – May 2025 · Shipped on two brands</div>
+
+    <div class="grid2" style="margin-top:34px">
+      <div class="prose rv">
+        <h4 style="margin-top:0">The challenge</h4>
+        <p>Getty Images' commercially safe AI generator needed <strong>reference images</strong>: pair a text prompt with an existing image and choose whether it influences the <em>color</em> or the <em>composition</em> of a new generation. The hardest phase let users reference <strong>stock images they hadn't licensed yet</strong> — on a platform whose entire business is licensing.</p>
+        <p>Research kept returning one theme: users didn't resent paying — they resented finding out late. "Bait-and-switch" paywalls were the top trust killer. So the brief became: let someone generate freely with an image they haven't paid for, make the eventual license requirement unmissable, and never once feel like a trap.</p>
+        <h4>My role</h4>
+        <p>Sole content designer with two product designers, a researcher, and a PO. I owned the copy system end to end — feature copy, education, error/empty/disabled states — plus launch QA, research distillation, upload legal and privacy language, and stakeholder walkthrough scripts.</p>
+        <div class="pills"><span class="pill">Terminology systems</span><span class="pill">Trust &amp; licensing UX</span><span class="pill">Research translation</span><span class="pill">Launch QA</span></div>
+      </div>
+      <div class="prose rv">
+        <h4 style="margin-top:0">Locking the vocabulary</h4>
+        <p>The first job was naming the two influence options. I rejected <em>"Influence priority"</em> (names the mechanism, not the choice) and <em>"Select what to take from your reference image"</em> ("take" is too aggressive for a creative tool). We landed on <strong>Focus on color</strong> ("Transfer color palette and tone") and <strong>Focus on composition</strong> ("Transfer compositional elements like pose").</p>
+        <p>When review feedback showed users didn't realize the onboarding examples were <em>new generations</em>, I iterated the step heading until it taught the causality itself: <em>"Select what to focus on and generate."</em></p>
+        <h4>Disabled states that give the reason, not the shrug</h4>
+        <p>With a reference active, camera controls and aspect ratios lock. The default copy said "Unavailable" — which implies <em>broken</em>. I set the rule: <strong>"disabled" (intentional, temporary), never "unavailable" (missing)</strong> — and always state why.</p>
+      </div>
+    </div>
+
+    <div class="exhibit rv fixable hidden-after" id="ex1a">
+      <div class="exhibit-label"><b>Exhibit 1A</b> — Disabled-state copy. Start with what shipped before I got there, then reveal the fix.</div>
+      <table class="ba">
+        <tr><th style="width:16%">Control</th><th style="width:40%">Before</th><th>After — states the technical truth</th></tr>
+        <tr><td class="lbl">Camera controls</td><td><span class="q q-bad">Unavailable when using a reference image</span></td><td class="aftercell"><span class="q q-good">Camera controls disabled when using a reference image for best results.</span></td></tr>
+        <tr><td class="lbl">Aspect ratios</td><td><span class="q q-bad">🚫 icon + "…to maintain the highest quality"</span></td><td class="aftercell"><span class="q q-good">Aspect ratios disabled when using a reference image to prevent partial image use or distortion.</span></td></tr>
+        <tr><td class="lbl">Color &amp; mood</td><td><span class="q q-bad">While using a reference image for color, this setting may not apply as expected</span></td><td class="aftercell"><span class="q q-good">Color settings may be affected by reference image.</span></td></tr>
+      </table>
+      <button class="fixbtn" data-target="ex1a">Show the fix →</button>
+    </div>
+
+    <h4>The licensing flow: clarity couldn't override truth</h4>
+    <div class="grid2">
+      <div class="prose rv">
+        <p>The unlicensed-reference flow had four beats to land, in order: a reference was used; you must license it to download; licensing supports the original creator and gets you both images; pricing is on the next screen.</p>
+        <p>The hardest decision was rejecting <strong>"Use without licensing"</strong> as a CTA — even though it tested as the clearest — because it implied users could proceed and assume the copyright risk themselves, which is legally wrong. I also banned <strong>"unlock"</strong> (paywall vocabulary), banned <strong>"free"</strong> anywhere (generating still costs credits), and rejected <strong>"Pre-shot images"</strong> as a tab label (ambiguous).</p>
+        <p>User testing showed people assumed limited functionality without upfront licensing, so the CTA pair evolved to <strong>"Generate now, license later" / "License now"</strong> with equal prominence — leading with full functionality, matching the trial-first mindset research kept surfacing.</p>
+        <p>Legal confirmed the exact <em>moment</em> of licensing didn't matter, only that the requirement was always clear — which freed the flow to stay friction-light.</p>
+      </div>
+      <div class="rv">
+        <div class="mock">
+          <h5>Use this image as a reference?</h5>
+          <div class="sec">How it works</div>
+          <p>Use this image's colors or composition to generate a new image — and get started right away.</p>
+          <div class="sec">Licensing requirements</div>
+          <p>To download your final generated image, you'll need to license this reference image. <a>View pricing details</a></p>
+          <div class="btn-row"><span class="btn primary">Generate now, license later</span><span class="btn secondary">License now</span></div>
+        </div>
+        <div class="mock" style="margin-top:14px">
+          <h5>This generated image used a reference image</h5>
+          <p>To download your generated image, you'll need to license the reference image. Licensing supports the original creator and allows you to download both the reference image and your generated image.</p>
+          <div class="btn-row"><span class="btn primary">License to download</span></div>
+          <p class="note">Pricing details will be shown on the next screen.</p>
+        </div>
+        <p class="caption"><b>Exhibit 1B</b> — Recreated confirmation modal and download interruption. The header is deliberately neutral and urgency-free (returning users genuinely forget); the value framing turns an obligation into an exchange.</p>
+      </div>
+    </div>
+
+    <div class="outcomes rv">
+      <h4>Outcomes</h4>
+      <ul>
+        <li>Phase 1 shipped on both Getty Images and iStock in July 2024; the uploads phase went kickoff to dev-ready in <strong>six weeks</strong>; the unlicensed-reference direction locked in November 2024 and entered build in January 2025.</li>
+        <li>In usability testing of the reference-image experience: <strong>86% comprehension</strong>, <strong>72%</strong> felt in control of outcomes, <strong>100%</strong> downloaded an image. One of <strong>eight features</strong> I landed across Getty &amp; iStock.</li>
+        <li>Launch QA caught <strong>two cross-brand blockers</strong> before release.</li>
+        <li>The pattern set — reference mental models, license-later flows, restriction overlays — became the foundation of Getty's next-generation prompt-based editing product. Chapter 02 is its sequel.</li>
+      </ul>
+    </div>
+    <p class="lesson rv">"Clarity can't override truth. The clearest label in the test was still the wrong one — the craft is finding the phrasing that's both."<span class="who">What Chapter 01 taught me</span></p>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 2 ============ -->
+<section class="ch ch-paper" id="cs2" data-t="ai trust lang featured">
+  <div class="ch-in">
+    <div class="bignum" aria-hidden="true">02</div>
+    <div class="kicker">Chapter 02 · Getty Images / iStock</div>
+    <h2>A language system for AI editing that tells the truth</h2>
+    <div class="meta">Content designer, prompt-based editing · 2025 – 2026 · The sequel to Chapter 01 — two years of continuity on one product family</div>
+
+    <div class="grid2" style="margin-top:34px">
+      <div class="prose rv">
+        <h4 style="margin-top:0">The challenge</h4>
+        <p>Getty's prompt-based editing product layered natural-language editing onto Getty and iStock: type "make it night" and the image changes. The catch lived in the model stack — the editing model output 1K natively, and the AI enhancement that produced the larger files stock customers expect could <em>literally change the picture</em>. Internal QA had flagged altered textures, skin, even a tooth gap. Usage data showed users gravitate to the largest download option — exactly the one most likely to change their image.</p>
+        <p>Three problems stacked: <strong>mental-model load</strong> (three editing spaces, set-level vs single-image edits); <strong>the truth problem</strong> (internal QA language — "deformities," "artifacts" — could never ship, but its substance had to); and <strong>the trust problem</strong> (we couldn't recommend one option over another, and in a stakeholder dry-run my own pros/cons slides were called out as quietly steering the room).</p>
+      </div>
+      <div class="prose rv">
+        <h4 style="margin-top:0">My role</h4>
+        <p>Content designer owning the product's language across UI and design reviews: taxonomy, CTAs, system-response vocabulary, guidance and error copy, download expectation-setting, and the review decks themselves.</p>
+        <h4>The taxonomy: three verbs that carry scope</h4>
+        <p>The core deliverable was one sentence. <em>Refine</em> is additive and set-level; <em>Modify</em> is precise and single-image — the word pair signals "all images vs one image" without explanatory UI. From it came a locked CTA verb system and a placement rule: <strong>outside the editor, copy sets expectations; inside the editor, copy drives action.</strong></p>
+        <div class="pills"><span class="pill">Language systems</span><span class="pill">Honest AI disclosure</span><span class="pill">Design-review craft</span><span class="pill">Probabilistic UX</span></div>
+      </div>
+    </div>
+
+    <div class="exhibit rv">
+      <div class="exhibit-label"><b>Exhibit 2A</b> — The three spaces</div>
+      <div class="tax">
+        <div class="space"><div class="verb">Generate</div><div class="does">explores ideas</div><div class="scope">New set from prompt</div></div>
+        <div class="space"><div class="verb">Refine</div><div class="does">shapes a set</div><div class="scope">All images · additive</div></div>
+        <div class="space"><div class="verb">Modify</div><div class="does">perfects one image</div><div class="scope">Single image · precise</div></div>
+      </div>
+      <p class="tax-sentence">"Generate explores ideas. Refine shapes a set. Modify perfects one image."</p>
+    </div>
+
+    <div class="exhibit rv">
+      <div class="exhibit-label"><b>Exhibit 2B</b> — The locked side-rail vocabulary: noun + past participle, two words, no synonyms. Open a rejected label to see why it died.</div>
+      <p class="caption" style="margin:0 0 10px">Landed: <span class="q q-good">Edit applied</span> <span class="q q-good">Variations created</span> <span class="q q-good">Image restored</span> <span class="q q-good">Image extended</span> <span class="q q-good">Background removed</span></p>
+      <details><summary><span class="q q-bad">Change saved</span></summary><div class="d-body">Imports a document-editor mental model into a probabilistic tool. Nothing here is "saved" the way a document is.</div></details>
+      <details><summary><span class="q q-bad">Original restored</span></summary><div class="d-body">Factually wrong — restore returns to the state a prompt produced, not the original; three restores may never reach the original. This copy review caught a functional misunderstanding the team itself held.</div></details>
+      <details><summary><span class="q q-bad">Regenerate</span></summary><div class="d-body">Model-centric; implies starting over rather than moving forward from what you have.</div></details>
+      <p class="caption">System responses repeat dozens of times per session. Humanized copy ("Your changes are live!") reads as fake when stacked in a feed — so the grammar is deliberately robotic-safe, on purpose.</p>
+    </div>
+
+    <h4>Download copy: from selling to describing</h4>
+    <div class="grid2">
+      <div class="prose rv">
+        <p>The download modal iterated from overpromise ("Upscaled without changing your image" — false) toward a neutral system. The breakthrough was reframing: these are <strong>different behaviors, not pros and cons</strong>. "May change small features" isn't a con, and the ✓/✕ icons were quietly telling users what to pick. I dropped the judgment framing for a "What to expect" expander — both options written at equal length so neither reads as the winner.</p>
+        <p>That "Details" line is internal QA truth translated into user language: <strong>never ship the lab notebook, never hide its conclusions.</strong></p>
+        <h4>The sandbagging fix</h4>
+        <p>In a design-review dry-run, a design leader called out that one option's cons looked self-created — <em>sandbagging</em>. Rather than soften the deck, I diagnosed the mechanics: asymmetric framing, judgment words, quantity imbalance, softeners on one side only. Then I rewrote all five option slides symmetric and neutral, and built parallel framing sets so tone can swap without changing substance. The method was adopted into the team's design-review format.</p>
+      </div>
+      <div class="rv">
+        <div class="mock">
+          <div class="sec" style="margin-top:0">Your modified image</div>
+          <h5 style="margin-bottom:2px">Higher resolution <span style="color:var(--faint);font-weight:400;font-size:12px">— 4096 × 2732 px · JPEG</span></h5>
+          <p>Upscaled to 4K with minimal changes.</p>
+          <details><summary>What to expect</summary><div class="d-body"><b>What happens</b> — Increases image size to 4K; preserves the original look as closely as possible.<br><b>Details</b> — Fine textures may appear slightly smoother or softer.<br><b>Best for</b> — When you need a larger size with minimal visual change.</div></details>
+          <div style="border-top:1px solid var(--paper-rule);margin:12px 0"></div>
+          <h5 style="margin-bottom:2px">Enhanced detail <span style="color:var(--faint);font-weight:400;font-size:12px">— 2048 × 1536 px · JPEG</span></h5>
+          <p>Enhances detail and texture—may change small features.</p>
+          <details><summary>What to expect</summary><div class="d-body"><b>What happens</b> — Adds sharper, more detailed textures.<br><b>Details</b> — Small features (like skin, hair, or text) may look slightly different.<br><b>Best for</b> — When you want sharper detail, even if some features are reinterpreted.</div></details>
+        </div>
+        <p class="caption"><b>Exhibit 2C</b> — The final neutral download module, working. Both options same length, one benefit + one trade-off each, no icons implying a winner. (Yes, the expander expands.)</p>
+      </div>
+    </div>
+
+    <div class="exhibit rv fixable hidden-after" id="ex2d">
+      <div class="exhibit-label"><b>Exhibit 2D</b> — The sandbagging rewrite (option names generalized)</div>
+      <table class="ba">
+        <tr><th style="width:46%">Rejected — reads as a verdict</th><th>Landed — describes the system</th></tr>
+        <tr><td><span class="q q-bad">Assumes everyone wants modify on the results page</span></td><td class="aftercell"><span class="q q-good">Prioritizes "modify" as a primary action within the results page</span></td></tr>
+        <tr><td><span class="q q-bad">Easiest lift for development</span></td><td class="aftercell"><span class="q q-good">Requires minimal development changes</span></td></tr>
+        <tr><td><span class="q q-bad">Scope creep</span></td><td class="aftercell"><span class="q q-good">Introduces additional feature scope</span></td></tr>
+      </table>
+      <button class="fixbtn" data-target="ex2d">Show the rewrite →</button>
+    </div>
+
+    <div class="outcomes rv">
+      <h4>Outcomes</h4>
+      <ul>
+        <li>The locked vocabulary and helper map moved to engineering handoff; the download copy system was delivered verbatim for the alignment meeting gating dev-spec dates.</li>
+        <li>The honest-framing method was adopted into the team's design-review format.</li>
+        <li>The copy process itself surfaced <strong>one production bug</strong> and <strong>one spec/claim contradiction</strong> before they reached customers.</li>
+      </ul>
+    </div>
+    <p class="lesson rv">"Knowing when not to be human is senior judgment. Repeated system responses are infrastructure — delight stacked five deep reads as fake."<span class="who">What Chapter 02 taught me</span></p>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 3 (NIGHT) ============ -->
+<section class="ch ch-night" id="cs3" data-t="ai trust featured">
+  <div class="ch-in">
+    <div class="bignum" aria-hidden="true">03</div>
+    <div class="kicker" style="color:var(--night-accent)">Chapter 03 · Samsung Knox · this one runs dark, like the subject</div>
+    <h2>The language of no: trust and guardrails for an enterprise AI assistant</h2>
+    <div class="meta">UX content owner, AI assistant trust surface · Knox admin console · 2025 – 2026</div>
+
+    <div class="grid2" style="margin-top:34px">
+      <div class="prose rv">
+        <h4 style="margin-top:0">The challenge</h4>
+        <p>Samsung Knox is the enterprise security platform IT admins use to manage fleets of corporate devices. The team was putting an AI assistant into that admin console — a domain where a wrong answer can misconfigure security policy for thousands of phones, and where over-trust (acting without review) and under-trust (never adopting) are both failure modes.</p>
+        <p>Heading into the beta, the guardrail tickets had <strong>no user-facing messages</strong> — interventions would have surfaced as raw refusals. The live prototype's block message read "your request contains content that violates our policies," which convicts the user on every false positive. The entry screen stacked five disclaimers into legal wallpaper and promised a session-export feature that didn't exist.</p>
+        <h4>My role</h4>
+        <p>UX content owner for the assistant's trust surface: sole author of the guardrail messaging document (v1–v4), the naming strategy, and the measurement framework; negotiator of disclaimer and consent copy with legal, design, PM, and engineering; and owner of a 46-screen copy review that set house style rules.</p>
+        <div class="pills"><span class="pill">Enterprise AI</span><span class="pill">Safety &amp; refusal UX</span><span class="pill">Legal negotiation</span><span class="pill">Measurement</span></div>
+      </div>
+      <div class="prose rv">
+        <h4 style="margin-top:0">Untangling what the system actually does</h4>
+        <p>I started by asking why there were so many guardrail triggers — and traced every one to an engineering ticket, a stakeholder comment, or a section of the internal guardrail policy. The provenance table went into the messaging doc itself, so every message could be defended by pointing at its source.</p>
+        <p>The audit caught a real conflation: one "rate limit" message was doing three different jobs. I separated <strong>input limit</strong>, <strong>output limit</strong>, and <strong>runtime limit</strong> — each with recovery advice the user can actually follow. The old copy told admins to "wait and try again" — right for throttling, wrong for the other two. Untangling system truth before writing copy is the job.</p>
+        <p class="pull">Refusal moments are where trust is won or lost — and exactly where teams spend the least design time. Nobody demos the block message.</p>
+      </div>
+    </div>
+
+    <div class="demo rv" id="fixdemo">
+      <div class="exhibit-label"><b>Interactive</b> — Fix this message. The live prototype's block message, with its problems marked. Tap each one, then rewrite it.</div>
+      <div class="initial">
+        <div class="msgcard">"I'm sorry, <mark data-note="<b>Convicts the user.</b> On every false positive — and guardrails false-positive constantly — this accuses someone who did nothing wrong.">your request contains content that violates our policies</mark><mark data-note="<b>No reason, no recovery.</b> The message ends. What should the admin do next — guess?" style="border-left:none">.</mark>"</div>
+        <p class="annot" id="annot">Tap a highlighted problem ↑</p>
+        <button class="fixbtn" id="rewriteBtn">Rewrite it →</button>
+      </div>
+      <div class="final">
+        <div class="msgcard">"Your message could not be processed because it <em>may</em> violate our content policy. <em>Please rephrase your request and try again.</em>"</div>
+        <p class="annot"><span class="ok">The "may" does the ethical work</span> — it covers false positives without withholding the reason, and the recovery path is one the user can actually take. Constraints this sentence survived: one configurable message for all filter types, a security rule against revealing which guardrail fired, a stakeholder demand for a reason, and a user who deserves not to be accused.</p>
+        <button class="fixbtn done" id="unrewriteBtn">← Back to the broken one</button>
+      </div>
+    </div>
+
+    <div class="exhibit rv fixable hidden-after" id="ex3a">
+      <div class="exhibit-label"><b>Exhibit 3A</b> — One message, three jobs: the limits untangled</div>
+      <table class="ba">
+        <tr><th style="width:15%">Limit</th><th style="width:36%">Before — one message for all three</th><th>After — advice the user can actually follow</th></tr>
+        <tr><td class="lbl">Input limit</td><td rowspan="3" style="vertical-align:middle"><span class="q q-bad">"You've reached the request limit. Please wait a moment and try again."</span><br><span class="why">Right for throttling; wrong for everything else.</span></td><td class="aftercell"><span class="q q-good">Your message is too long to process. Try shortening it or breaking it into smaller questions.</span></td></tr>
+        <tr><td class="lbl">Output limit</td><td class="aftercell"><span class="q q-good">My response was cut short because it exceeded the output limit. Try asking a more specific question so I can keep the answer shorter.</span></td></tr>
+        <tr><td class="lbl">Runtime limit</td><td class="aftercell"><span class="q q-good">This request was stopped because it used more resources than allowed. Try breaking it into smaller steps.</span></td></tr>
+      </table>
+      <button class="fixbtn" data-target="ex3a">Untangle them →</button>
+    </div>
+
+    <div class="grid2">
+      <div class="prose rv">
+        <h4>Disclaimers, consent, and the legal negotiation</h4>
+        <p>The entry screen stacked terms language, data-usage language, accuracy hedges, a translation warning, and an input warning. I lost the push to cut legally required lines — and won the fight that mattered: <strong>structure</strong>. One tightened paragraph up top, one persistent line under the input at the moment it matters. Pitching the change as structure-not-content is why legal said yes.</p>
+        <p>I rejected the translation warning's "use English for best results" — it reads as English-superiority and breaks when the user already <em>is</em> asking in English. A verb-level analysis landed: <em>"[The assistant] supports English. Translated responses may be less accurate."</em> I also caught a trust-breaking claim — a promised session-export feature that didn't exist — and replaced it with honest 30-day retention copy.</p>
+      </div>
+      <div class="prose rv">
+        <h4>Naming and measurement</h4>
+        <p>The renaming brief came with hard constraints (no "AI" in the name, must fit the product family). I rebuilt the strategy on naming research; three team favorites died on receipts, not taste: a trademark collision, a toxic association, a partner's product name. For measurement, I wrote the framework that answers "what's the KPI?" with <em>there isn't one</em> — four pillars, with guardrail metrics first-class (rollback frequency, bulk actions without review): success is not speed at the cost of control.</p>
+      </div>
+    </div>
+
+    <div class="outcomes rv">
+      <h4>Outcomes</h4>
+      <ul>
+        <li><strong>13 guardrail messages</strong> finalized and mapped across five engineering tickets; <strong>9 shipped for the beta</strong>, 2 consciously parked with tracking tickets.</li>
+        <li>Legal accepted the disclaimer restructure; the false export claim became honest 30-day retention copy.</li>
+        <li>A 46-screen copy review produced <strong>~55 findings</strong> — including that all 46 screens had <strong>zero</strong> error, empty, or permission states.</li>
+      </ul>
+    </div>
+    <p class="lesson rv">"With legal, pitch structure, not content. That one sentence has paid for itself a dozen times."<span class="who">What Chapter 03 taught me</span></p>
+  </div>
+</section>
+
+<!-- ============ FURTHER STUDIES ============ -->
+<section class="studies" id="studies">
+  <div class="kicker">Further studies · 04 – 07</div>
+  <h2 class="rv">The supporting evidence</h2>
+  <p class="sub rv">Four more, told shorter — each one ending with what it cost me to learn. Full versions available in conversation, where the good details live anyway.</p>
+  <div class="sgrid">
+
+    <div class="study rv" id="s04" data-t="gov lang">
+      <div class="n">Study 04 · Samsung Knox</div>
+      <h3>Six thousand terms, seven products, one vocabulary</h3>
+      <p class="lede">Seven enterprise consoles had drifted into seven dialects — "EMM" meant "UEM" meant "MDM," sometimes in the same product. I built the suite's first complete terminology inventory, then the governance to keep it honest.</p>
+      <ul>
+        <li><b>Capture, don't fix</b> — every term logged exactly as shipped, because mixing inventory with improvement produces neither.</li>
+        <li>An AI-assisted deduplication pipeline that failed twice (inflating to 7,242 rows, then over-collapsing to 222 clusters) before the version that classified variants instead of erasing them — with a human between the algorithm and every merge.</li>
+        <li>~184 glossary entries into structured review; decision frameworks for the contested terms ("agent" over "client"; plan vs bundle vs edition; "a policy applies one or more settings to a device").</li>
+        <li>Proved the model on a bounded surface: the 86-tooltip audit, every item with a disposition and a ticket.</li>
+      </ul>
+      <p class="slesson">"AI clustering fails silently in both directions. The fix is the same either way: keep the variants visible, and put a human between the algorithm and the merge."</p>
+    </div>
+
+    <div class="study rv" id="s05" data-t="ai lang">
+      <div class="n">Study 05 · Samsung Knox</div>
+      <h3>One rule, thirteen responses: a design system for an agentic AI</h3>
+      <p class="lede">An assistant that <em>acts</em> — pulling logs, re-queuing firmware, drafting policy — can't let "here's my plan" be mistaken for "I already did it." I designed the response system: 13 classes, a classification router, seven reusable chassis, and a model-facing runtime contract.</p>
+      <ul>
+        <li><b>The one rule:</b> primary-action styling is reserved for the single action that changes system state. Everything else is a reply or a utility. Approval on a plan is a reply; the button appears only at the true commit.</li>
+        <li>A four-question router classifies any response: changes state? needs input? safe without approval? produces a deliverable?</li>
+        <li>The taxonomy rewritten as an engineering contract — required/forbidden fields per class, derivation over introspection — adoptable because it ceded the enforcement mechanism.</li>
+        <li>Ten operational safety concerns collapsed into a <b>Denied</b> class (neutral, never red, never apologizes, always carries a route), three Confirm tiers, and honest partial-completion states.</li>
+      </ul>
+      <p class="slesson">"Content design at its most leveraged isn't writing strings — it's defining the taxonomy that determines which strings can exist."</p>
+    </div>
+
+    <div class="study rv" id="s06" data-t="ai gov">
+      <div class="n">Study 06 · Autodesk</div>
+      <h3>The chatbot wasn't the problem. The missing judgment system was.</h3>
+      <p class="lede">Everyone could tell the internal AI support assistant was sometimes wrong; nobody could say how, how often, or in which ways. I wrote the evaluation framework — then ran the pilot audit and caught the auditor AI hallucinating its own findings.</p>
+      <ul>
+        <li>A 15-point LLM-as-judge rubric across five dimensions, with fabricated information an automatic zero and a critical-failure flag for hallucinations and broken escalations.</li>
+        <li>A five-category failure taxonomy — because a hallucinated deadline, a tone complaint, and a dead-end fallback all need different fixes.</li>
+        <li>The pilot's best diagnosis: a 9/15 thread whose root cause wasn't hallucination but state management — the bot regenerated everything each turn instead of applying the user's edits.</li>
+        <li>The meta-lesson institutionalized: judge output is untrusted until human-calibrated (κ ≥ 0.7), and every judgment carries row-level provenance.</li>
+      </ul>
+      <p class="slesson">"Evaluation is content design. Deciding what a good fallback looks like is language work — expressed as a rubric instead of microcopy."</p>
+    </div>
+
+    <div class="study rv" id="s07" data-t="trust gov lang">
+      <div class="n">Study 07 · iStock</div>
+      <h3>Renaming a product line without breaking trust</h3>
+      <p class="lede">Two collections renamed, a benefit removed, grandfathering rules to explain — a trust minefield where one wrong phrase had real money consequences. I owned the customer-facing copy: 158 text nodes, one source of truth, no euphemisms.</p>
+      <ul>
+        <li>Killed "or you switch plans" everywhere — it overstated the loss, and overstating a loss is as much a trust failure as hiding one. It would also have suppressed the exact upgrade behavior the project existed to encourage.</li>
+        <li>One sanctioned wording for the rollover rule, word-for-word identical across every FAQ, tile, tooltip, and modal that states it.</li>
+        <li>Caught an inverted rename mapping in stakeholder-<em>approved</em> copy — a one-word typo that would have reversed the entire rename.</li>
+        <li>Specified the conditional-messaging logic (plan tier × grandfathering status), because content design here meant writing the logic as well as the strings.</li>
+      </ul>
+      <p class="slesson">"Precision and kindness turned out to be the same edit — the softer drafts weren't gentler, they were wrong."</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ THE STACK ============ -->
+<section class="stack" id="stack">
+  <div class="ch-in">
+    <div class="kicker">The through-line · 2014 – 2026</div>
+    <h2 class="rv">The material never changed. What it <em>operates on</em> did.</h2>
+    <p class="sub rv">Twelve years of the same craft — language — applied one layer deeper into the machine each time. This is why the AI work isn't a pivot. It's the same job, five levels down.</p>
+    <div class="layers">
+      <div class="layer rv"><div class="yr">2014</div><div class="verb">Words organize a catalog.</div><div class="what">Best Buy — taxonomy, IA, and content strategy for a product catalog at national scale. Language as structure.</div></div>
+      <div class="layer rv"><div class="yr">2018</div><div class="verb">Words become a conversation.</div><div class="what">Lemonade — Maya, an AI insurance chatbot. The first time my words were performed by a machine instead of read beside one.</div></div>
+      <div class="layer rv"><div class="yr">2024</div><div class="verb">Words explain the model.</div><div class="what">Getty Images — generative tools where the copy's job is honest expectation-setting for probabilistic behavior: what changed, why, and what it costs.</div></div>
+      <div class="layer rv"><div class="yr">2025</div><div class="verb">Words constrain the model.</div><div class="what">Samsung Knox — guardrail messaging, refusal language, consent, and a response grammar the model itself is contractually held to.</div></div>
+      <div class="layer rv"><div class="yr">2026</div><div class="verb">Words judge the model.</div><div class="what">Autodesk — evaluation rubrics, failure taxonomies, and audit workflows: deciding what "good" means, then measuring the machine against it.</div></div>
+    </div>
+    <p class="coda rv">Structure → conversation → explanation → constraint → judgment. I didn't move toward AI. I kept doing content design while its subject matter became AI.</p>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES ============ -->
+<section class="princ" id="principles">
+  <div class="ch-in">
+    <div class="kicker" style="color:var(--night-accent)">Field notes</div>
+    <h2>Things I believe, learned the hard way</h2>
+    <p class="sub">Every one of these came out of a real product decision — most of them out of getting it wrong first.</p>
+    <div class="plist">
+      <div class="pitem rv"><div class="pn">01</div><div><h3>Clarity can't override <em>truth.</em></h3><p>The clearest label in testing was legally wrong. The craft is the phrasing that's both — and it always takes more rounds than either alone.</p></div></div>
+      <div class="pitem rv"><div class="pn">02</div><div><h3>Disabled, never <em>unavailable.</em></h3><p>"Unavailable" implies broken. "Disabled" is intentional and temporary — and it always gets a reason. Users forgive limits; they don't forgive shrugs.</p></div></div>
+      <div class="pitem rv"><div class="pn">03</div><div><h3>Say it once, in the <em>right place.</em></h3><p>If the overlay says it and the note says it, we don't need the tooltip saying it a third way. Redundancy isn't reinforcement; it's noise.</p></div></div>
+      <div class="pitem rv"><div class="pn">04</div><div><h3>Never ship the lab notebook. Never hide its <em>conclusions.</em></h3><p>"Deformities" and "artifacts" can't reach users — but their substance must. Translating internal truth into user language is the whole job.</p></div></div>
+      <div class="pitem rv"><div class="pn">05</div><div><h3>Robotic on <em>purpose.</em></h3><p>System responses that repeat fifty times a session are infrastructure, not conversation. Two words, noun + past participle, no synonyms — and no "Your changes are live!"</p></div></div>
+      <div class="pitem rv"><div class="pn">06</div><div><h3>Honest process is a <em>system property.</em></h3><p>My "sandbagged" slides weren't dishonest in intent — they were asymmetric in mechanics. Fix the framework and the honesty follows.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEDGER ============ -->
+<section class="ledger" id="ledger">
+  <div class="kicker">The complete record · 2014 – 2026</div>
+  <h2 class="rv">The ledger</h2>
+  <p class="sub rv">Everything, not just the highlights — because a portfolio that only shows three projects is a trailer, and this is the filmography. Ask me about any line.</p>
+
+  <div class="lgroup rv">
+    <h3>Now · concurrent client engagements through my practice</h3>
+    <div class="lrow"><div class="t">Getty Images / iStock — AI image generation &amp; prompt-based editing<small>8 features landed (Reference Images · Product Placement · Background Remove · Seed ID · Extend · more) · terminology systems · licensing flows · design-review craft</small></div><div class="y">2024–now</div></div>
+    <div class="lrow"><div class="t">Samsung Knox — enterprise AI assistant &amp; content governance<small>Guardrails · naming · measurement framework · glossary at 6,000-term scale</small></div><div class="y">2025–now</div></div>
+    <div class="lrow"><div class="t">Autodesk — AI content quality<small>LLM-as-judge evaluation rubric · five-category failure taxonomy · five-phase audit workflow</small></div><div class="y">2026</div></div>
+  </div>
+
+  <div class="lgroup rv">
+    <h3>Systems &amp; governance work worth a conversation</h3>
+    <div class="lrow"><div class="t">SamsungKnox.com public AI chatbot — named it, launched it<small>"Samsung Knox Guide" · all four launch deliverables · live on the public site</small></div><div class="y">2025</div></div>
+    <div class="lrow"><div class="t">The AI Content Layer — a 26-scenario catalogue and a pitch<small>Argued UX writers should own AI prompt systems, responses, and framing — to the org's UX writing group</small></div><div class="y">2025</div></div>
+    <div class="lrow"><div class="t">86-tooltip audit with a reusable decision framework<small>Keep 50% · rewrite 27% · relocate or remove the rest — every call defensible</small></div><div class="y">2025</div></div>
+    <div class="lrow"><div class="t">iStock plan-tier renaming — 158 text nodes without breaking trust<small>Grandfathering language where one wrong phrase had real money consequences</small></div><div class="y">2026</div></div>
+    <div class="lrow"><div class="t">Agentic response system — 13 response classes<small>The grammar of an agentic assistant: router/chassis model, one primary CTA per view</small></div><div class="y">2025–26</div></div>
+    <div class="lrow"><div class="t">B2B glossary term clusters · CSV error-pattern spec · camera-controls taxonomy · error &amp; empty-state systems<small>The unglamorous load-bearing work — which is rather the point</small></div><div class="y">2024–26</div></div>
+  </div>
+
+  <div class="lgroup rv">
+    <h3>Earlier · where the fundamentals came from</h3>
+    <div class="lrow"><div class="t">Shopify — Senior Product Content Designer<small>Translate &amp; Adapt (named "Auto-translate" over "Machine translate" — 4.4/5 across 449 reviews) · early Shopify Magic AI features · The Grid · experimentation platform</small></div><div class="y">2022–24</div></div>
+    <div class="lrow"><div class="t">Domain7 — Lead Content Designer (agency)<small>Credited content strategies for Carbon Trust and Dalhousie · Bangor University IA: navigation success 61%→89% · BlueShore · Concert Properties · a dozen more</small></div><div class="y">2019–22</div></div>
+    <div class="lrow"><div class="t">Lemonade — Lead Content Designer<small>Maya, the AI insurance chatbot — where my AI thread actually starts. Choice-based funneling, simplified legalese, a conversation that sold policies</small></div><div class="y">2018–19</div></div>
+    <div class="lrow"><div class="t">Best Buy Canada — Taxonomy &amp; Information Strategist, then Senior Content Strategist &amp; IA<small>Marketplace launch: 65K→1M SKUs in year one · NN/g-referenced IA work · arrived to a company that had lost all its content strategists; left behind a community of 15 embedded across 8 streams</small></div><div class="y">2014–18</div></div>
+    <div class="lrow"><div class="t">Vancouver Film School — UX/UI Design Instructor<small>Advanced IA · persuasive content design · AI literacy in design education</small></div><div class="y">2023–now</div></div>
+    <div class="lrow"><div class="t">Van Wagner — big-screen content operator, Vancouver 2010 Olympics<small>Everyone starts somewhere. Mine had a stadium.</small></div><div class="y">2010</div></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="ch-in">
+    <div class="grid2">
+      <div class="rv">
+        <div class="kicker">About</div>
+        <h2 style="margin-top:18px">The breadth is <em>the point.</em></h2>
+      </div>
+      <div class="prose rv">
+        <p>I'm a self-taught content designer from Vancouver who worked from Best Buy's product catalog to running content design for AI products at three major companies at once. No degree — just twelve years of treating every complex system as something that can be made legible, and building the system that makes it so. And the AI thread isn't new: I was writing Maya, Lemonade's insurance chatbot, back in 2018 — before "conversational AI" had a design discipline attached to it.</p>
+        <p>My instinct when facing chaos is to build a framework that makes the chaos navigable: glossaries, taxonomies, response systems, audit pipelines, measurement frameworks. I win through thoroughness, not flash — the signature work here isn't a beautiful screen, it's six thousand terms catalogued so that seven products finally speak one language.</p>
+        <p>And I treat feedback about my work the way I treat feedback about copy: as data. The sandbagging story in Chapter 02 is on this site <em>because</em> it started with someone telling me my slides were biased.</p>
+        <div style="margin-top:26px">
+          <div class="fact"><b>Working style</b> — state a point of view, then open the door: "here's my recommendation and why — choose what fits."</div>
+          <div class="fact"><b>Current arena</b> — AI products, because probabilistic systems need honest language more than any interface ever has.</div>
+          <div class="fact"><b>Also</b> — I teach IA and content design at Vancouver Film School, run a small Etsy shop, and write songs. Ask about the aquarium.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact">
+  <div class="ch-in">
+    <p class="foot-big rv">Let's make something complicated <a href="mailto:Zameer_Ali@live.com">make sense.</a></p>
+    <div class="foot-meta">
+      <span>Zameer Ali · Senior Content Designer · Vancouver, BC · open to remote (Canada)</span>
+      <span><a href="mailto:Zameer_Ali@live.com">Zameer_Ali@live.com</a> · <a href="https://linkedin.com/in/zameer-ali">linkedin.com/in/zameer-ali</a></span>
+    </div>
+    <p class="made">Public-facing work: gettyimages.ca/ai/generation · istockphoto.com/ai · shopify.com/ca/magic · shopify.com/ca/capital · samsungknox.com (say hi to the Guide)</p>
+    <p class="made">Built AI-first — researched, drafted, and assembled with AI agents working from my own project notes, then edited by hand. It's the same way I work in product: the tools do the assembly; the judgment stays mine. Employer-confidential details are generalized throughout; I go deeper in conversation.</p>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* hero word cascade */
+  var words=document.querySelectorAll('#heroline .word');
+  if(reduced){words.forEach(function(w){w.classList.add('in')});}
+  else{words.forEach(function(w,i){setTimeout(function(){w.classList.add('in')},250+i*130);});}
+
+  /* self-edit line */
+  var el=document.getElementById('editline'),note=document.getElementById('editnote');
+  var draft="I leverage cross-functional synergies to optimize content touchpoints.";
+  var fin="I make complicated products make sense.";
+  if(reduced){el.innerHTML='<span class="fix">'+fin+'</span>';}
+  else{
+    var i=0,j=0;
+    function typeDraft(){if(i<=draft.length){el.innerHTML='<span>'+draft.slice(0,i)+'</span><span class="caret"></span>';i+=2;setTimeout(typeDraft,22);}else{setTimeout(strike,700);}}
+    function strike(){el.innerHTML='<span class="strike">'+draft+'</span><span class="caret"></span>';setTimeout(typeFix,900);}
+    function typeFix(){if(j<=fin.length){el.innerHTML='<span class="strike">'+draft+'</span><br><span class="fix">'+fin.slice(0,j)+'</span><span class="caret"></span>';j++;setTimeout(typeFix,32);}else{el.innerHTML='<span class="strike">'+draft+'</span><br><span class="fix">'+fin+'</span>';note.classList.add('show');}}
+    setTimeout(typeDraft,1100);
+  }
+
+  /* scroll reveal */
+  if('IntersectionObserver' in window && !reduced){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    document.querySelectorAll('.rv').forEach(function(n){io.observe(n);});
+  } else {document.querySelectorAll('.rv').forEach(function(n){n.classList.add('in');});}
+
+  /* progress + night-mode nav swap */
+  var prog=document.getElementById('progress');
+  var night=document.getElementById('cs3');
+  var princ=document.getElementById('principles');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement;
+    prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+    var y=h.scrollTop+60;
+    var inNight=(y>=night.offsetTop&&y<night.offsetTop+night.offsetHeight)||(y>=princ.offsetTop&&y<princ.offsetTop+princ.offsetHeight);
+    document.body.classList.toggle('in-night',inNight);
+  },{passive:true});
+
+  /* show-the-fix buttons */
+  document.querySelectorAll('.fixbtn[data-target]').forEach(function(btn){
+    btn.dataset.orig=btn.textContent;
+    btn.addEventListener('click',function(){
+      var ex=document.getElementById(btn.dataset.target);
+      var hidden=ex.classList.toggle('hidden-after');
+      btn.textContent=hidden?btn.dataset.orig:'Hide the fix';
+      btn.classList.toggle('done',!hidden);
+    });
+  });
+
+  /* facet filter */
+  var STATUS={
+    all:"All seven. The full syllabus.",
+    featured:"The three I'd show a hiring panel first. Start here.",
+    ai:"Five studies where the words meet the model.",
+    trust:"Four studies about not lying to users — even by accident.",
+    gov:"Three studies of the unglamorous, load-bearing work. Which is rather the point.",
+    lang:"Four studies where the deliverable was a vocabulary."
+  };
+  var chips=document.querySelectorAll('.chip');
+  var fstatus=document.getElementById('fstatus');
+  var studiesSection=document.getElementById('studies');
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      chips.forEach(function(x){x.classList.remove('active')});
+      c.classList.add('active');
+      var f=c.dataset.f;
+      document.querySelectorAll('[data-t]').forEach(function(el){
+        var show=(f==='all')||el.dataset.t.split(' ').indexOf(f)>-1;
+        el.classList.toggle('fhide',!show);
+      });
+      var anyStudy=Array.prototype.some.call(document.querySelectorAll('.study'),function(s){return !s.classList.contains('fhide')});
+      studiesSection.style.display=anyStudy?'':'none';
+      fstatus.textContent=STATUS[f]||'';
+      document.querySelectorAll('.rv:not(.in)').forEach(function(n){n.classList.add('in')});
+    });
+  });
+
+  /* fix-this-message demo */
+  var annot=document.getElementById('annot');
+  document.querySelectorAll('#fixdemo mark').forEach(function(m){
+    m.addEventListener('click',function(){annot.innerHTML=m.dataset.note;m.classList.add('seen');});
+  });
+  var demo=document.getElementById('fixdemo');
+  var rb=document.getElementById('rewriteBtn'),ub=document.getElementById('unrewriteBtn');
+  if(rb){rb.addEventListener('click',function(){demo.classList.add('rewritten');});}
+  if(ub){ub.addEventListener('click',function(){demo.classList.remove('rewritten');});}
+})();
+</script>
+</body>
+</html>
