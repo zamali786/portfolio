@@ -39,6 +39,11 @@ nav{position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(
 .press{background:var(--paper);border-top:1px solid var(--paper-rule);border-bottom:1px solid var(--paper-rule);padding:24px 0}
 .press .row{display:flex;gap:52px;justify-content:center;flex-wrap:wrap;align-items:baseline;font-weight:700;letter-spacing:.12em;font-size:14px}
 .press .row span i{font-style:normal;font-weight:500;font-size:11px;color:var(--teal);display:block;text-align:center;letter-spacing:.02em;margin-top:2px}
+.roster{overflow:hidden;margin-top:18px;position:relative}
+.roster .track{display:inline-block;white-space:nowrap;animation:roster 36s linear infinite;font-weight:500;letter-spacing:.14em;font-size:11.5px;color:var(--muted)}
+.roster .track span{margin-right:44px}
+@keyframes roster{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.roster .track{animation:none;white-space:normal}}
 section{padding:92px 0}
 h2{font-size:clamp(30px,4.4vw,48px);font-weight:700;letter-spacing:-.02em;text-align:center;line-height:1.08}
 h2 .serif{font-style:italic;font-weight:500;color:var(--teal)}
@@ -88,15 +93,17 @@ footer .pill{margin-top:38px}
 </div></nav>
 
 <header class="hero" id="top">
-  <h1>Forget everything you know about <span class="serif">content design.</span></h1>
-  <p class="tag">Instant clarity. <b>Honest language.</b> Systems that scale.</p>
+  <h1>I make complicated products <span class="serif">make sense.</span></h1>
+  <p class="tag">Instant clarity. <b>Honest language.</b> Systems that scale.<br><span style="font-size:.78em;color:var(--muted);font-weight:400">Content design for the products with fine print — AI, licensing, security.</span></p>
   <a class="pill" href="#work">See the work</a>
   <svg class="squig" width="130" height="22" viewBox="0 0 130 22" fill="none"><path d="M3 14 Q 18 4, 33 12 T 65 12 T 97 12 T 127 8" stroke="#0e5a63" stroke-width="3.5" stroke-linecap="round"/></svg>
 </header>
 
 <div class="press"><div class="row">
   <span>GETTY&nbsp;IMAGES</span><span>SAMSUNG&nbsp;KNOX</span><span>AUTODESK</span><span>SHOPIFY</span><span>LEMONADE</span><span>BEST&nbsp;BUY</span>
-</div></div>
+</div>
+<div class="roster" aria-hidden="true"><div class="track"><span></span><span>AND THE AGENCY YEARS —</span><span>DOMAIN7</span><span>CARBON TRUST</span><span>BANGOR UNIVERSITY</span><span>CONCERT PROPERTIES</span><span>DALHOUSIE UNIVERSITY</span><span>BLUESHORE FINANCIAL</span><span>VANCOUVER FILM SCHOOL</span><span>ISTOCK</span><span>VANCOUVER 2010 OLYMPICS</span><span>AND THE AGENCY YEARS —</span><span>DOMAIN7</span><span>CARBON TRUST</span><span>BANGOR UNIVERSITY</span><span>CONCERT PROPERTIES</span><span>DALHOUSIE UNIVERSITY</span><span>BLUESHORE FINANCIAL</span><span>VANCOUVER FILM SCHOOL</span><span>ISTOCK</span><span>VANCOUVER 2010 OLYMPICS</span></div></div>
+</div>
 
 <section id="work"><div class="wrap">
   <h2>Words for every kind of <span class="serif">complicated.</span></h2>
@@ -136,6 +143,13 @@ footer .pill{margin-top:38px}
       <p>An LLM-as-judge evaluation framework — and catching the auditor AI inventing its own findings mid-audit.</p>
       <div class="stat">15-point rubric · 702-row pilot</div>
       <a href="work.html#s06">Read the study →</a>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="16" width="34" height="24" rx="3"/><path d="M11 16 V11 a2 2 0 0 1 2-2 h22 a2 2 0 0 1 2 2 v5"/><path d="M19 25 h10" stroke="#0e5a63"/><path d="M7 22 h34" /></svg>
+      <h3>The agency years, preserved</h3>
+      <p>Experience maps, personas, and content strategies for Carbon Trust, Bangor University, and Concert Properties — kept because they still argue well.</p>
+      <div class="stat">Domain7 · 2019–2022 · 5 artifacts on the shelf</div>
+      <a href="work.html#archive">Browse the archive →</a>
     </div>
   </div>
 </div></section>
