@@ -26,7 +26,7 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:var(--serif);color:var(--ink);background:#fff;line-height:1.65;font-size:17px;overflow-x:hidden}
+  body{font-family:var(--serif);color:var(--ink);background:#fff;line-height:1.72;font-size:17px;overflow-x:hidden}
   ::selection{background:var(--accent);color:#fff}
   a{color:var(--accent)}
   .sans{font-family:var(--sans)}
@@ -85,24 +85,24 @@
   .stat .l{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:8px;letter-spacing:.04em;max-width:22em}
 
   /* ---------- chapters shared ---------- */
-  section.ch{position:relative;padding:110px 0 90px}
+  section.ch{position:relative;padding:130px 0 105px}
   .ch-in{max-width:1200px;margin:0 auto;padding:0 28px;position:relative}
   .bignum{position:absolute;top:-40px;right:-10px;font-size:clamp(160px,26vw,380px);line-height:1;font-weight:400;color:transparent;-webkit-text-stroke:1.5px var(--rule);z-index:0;user-select:none;pointer-events:none}
   .ch h2{font-size:clamp(34px,5.4vw,68px);font-weight:400;letter-spacing:-.02em;line-height:1.08;max-width:16em;position:relative;z-index:1}
   .ch .meta{font-family:var(--sans);font-size:13px;color:var(--muted);margin:18px 0 0;padding-bottom:22px;border-bottom:2px solid var(--ink);position:relative;z-index:1}
-  h4{font-family:var(--sans);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:34px 0 10px;font-weight:700;position:relative;z-index:1}
-  .prose{max-width:66ch;position:relative;z-index:1}
-  .prose p{margin-bottom:14px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:44px;position:relative;z-index:1}
+  h4{font-family:var(--sans);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:46px 0 14px;font-weight:700;position:relative;z-index:1}
+  .prose{max-width:62ch;position:relative;z-index:1}
+  .prose p{margin-bottom:20px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:72px;position:relative;z-index:1}
   @media(max-width:860px){.grid2{grid-template-columns:1fr}}
   .pills{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 4px}
   .pill{font-family:var(--sans);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent-soft);color:var(--accent);padding:4px 11px;border-radius:20px;font-weight:600}
-  .pull{border-left:3px solid var(--accent);padding:4px 0 4px 18px;margin:20px 0;font-style:italic;color:var(--muted);font-size:19px;max-width:30em}
-  .lesson{font-size:clamp(22px,3vw,32px);font-style:italic;line-height:1.35;max-width:26em;margin:44px auto 0;text-align:center;color:var(--ink);position:relative;z-index:1}
+  .pull{border-left:3px solid var(--accent);padding:6px 0 6px 20px;margin:34px 0;font-style:italic;color:var(--muted);font-size:20px;line-height:1.55;max-width:30em}
+  .lesson{font-size:clamp(22px,3vw,32px);font-style:italic;line-height:1.35;max-width:26em;margin:64px auto 0;text-align:center;color:var(--ink);position:relative;z-index:1}
   .lesson .who{display:block;font-family:var(--sans);font-style:normal;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:14px}
 
   /* exhibits */
-  .exhibit{border:1px solid var(--rule);border-radius:12px;padding:22px 24px;margin:28px 0;background:#fcfcfd;position:relative;z-index:1}
+  .exhibit{border:1px solid var(--rule);border-radius:12px;padding:24px 26px;margin:46px 0;background:#fcfcfd;position:relative;z-index:1}
   .exhibit-label{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:12px}
   .exhibit-label b{color:var(--accent)}
   table.ba{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:14px}
@@ -141,7 +141,7 @@
   .tax .does{font-size:14px;color:var(--muted);font-style:italic;margin-top:3px}
   .tax .scope{font-family:var(--sans);font-size:11px;margin-top:8px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
   .tax-sentence{text-align:center;font-style:italic;margin-top:12px}
-  .outcomes{background:var(--accent-soft);border-radius:12px;padding:20px 26px;margin-top:28px;max-width:780px;position:relative;z-index:1}
+  .outcomes{background:var(--accent-soft);border-radius:12px;padding:24px 28px;margin-top:46px;max-width:780px;position:relative;z-index:1}
   .outcomes h4{margin-top:0}
   .outcomes ul{margin:4px 0 0 18px}
   .outcomes li{margin-bottom:7px;font-size:15.5px}
@@ -267,7 +267,7 @@
   .lrow .y{font-family:var(--sans);font-size:12px;color:var(--faint);white-space:nowrap}
 
   /* language-moved-design exhibit */
-  .moved{margin:34px 0;border-left:3px solid var(--accent);background:var(--accent-soft);padding:20px 24px}
+  .moved{margin:52px 0;border-left:3px solid var(--accent);background:var(--accent-soft);padding:22px 26px}
   .moved .exhibit-label{margin-bottom:4px}
   .moved .mnote{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-bottom:14px}
   .mrow{display:grid;grid-template-columns:1fr 34px 1.2fr;gap:10px;padding:12px 0;border-top:1px solid rgba(14,90,99,.18);font-size:14.5px;line-height:1.55;align-items:start}
@@ -447,14 +447,16 @@
       <div class="prose rv">
         <h4 style="margin-top:0">The challenge</h4>
         <p>Getty Images' commercially safe AI generator needed <strong>reference images</strong>: pair a text prompt with an existing image and choose whether it influences the <em>color</em> or the <em>composition</em> of a new generation. The hardest phase let users reference <strong>stock images they hadn't licensed yet</strong> — on a platform whose entire business is licensing.</p>
-        <p>Research kept returning one theme: users didn't resent paying — they resented finding out late. "Bait-and-switch" paywalls were the top trust killer. So the brief became: let someone generate freely with an image they haven't paid for, make the eventual license requirement unmissable, and never once feel like a trap.</p>
+        <p class="pull">Research kept returning one theme: users didn't resent paying — they resented finding out late.</p>
+        <p>"Bait-and-switch" paywalls were the top trust killer. So the brief became: let someone generate freely with an image they haven't paid for, make the eventual license requirement unmissable, and never once feel like a trap.</p>
         <h4>My role</h4>
         <p>Sole content designer with two product designers, a researcher, and a PO. I owned the copy system end to end — feature copy, education, error/empty/disabled states — plus launch QA, research distillation, upload legal and privacy language, and stakeholder walkthrough scripts.</p>
         <div class="pills"><span class="pill">Terminology systems</span><span class="pill">Trust &amp; licensing UX</span><span class="pill">Research translation</span><span class="pill">Launch QA</span></div>
       </div>
       <div class="prose rv">
         <h4 style="margin-top:0">Locking the vocabulary</h4>
-        <p>The first job was naming the two influence options. I rejected <em>"Influence priority"</em> (names the mechanism, not the choice) and <em>"Select what to take from your reference image"</em> ("take" is too aggressive for a creative tool). We landed on <strong>Focus on color</strong> ("Transfer color palette and tone") and <strong>Focus on composition</strong> ("Transfer compositional elements like pose").</p>
+        <p>The first job was naming the two influence options. I rejected <em>"Influence priority"</em> (names the mechanism, not the choice) and <em>"Select what to take from your reference image"</em> ("take" is too aggressive for a creative tool).</p>
+        <p>We landed on <strong>Focus on color</strong> ("Transfer color palette and tone") and <strong>Focus on composition</strong> ("Transfer compositional elements like pose").</p>
         <p>When review feedback showed users didn't realize the onboarding examples were <em>new generations</em>, I iterated the step heading until it taught the causality itself: <em>"Select what to focus on and generate."</em></p>
         <h4>Disabled states that give the reason, not the shrug</h4>
         <p>With a reference active, camera controls and aspect ratios lock. The default copy said "Unavailable" — which implies <em>broken</em>. I set the rule: <strong>"disabled" (intentional, temporary), never "unavailable" (missing)</strong> — and always state why.</p>
@@ -476,7 +478,8 @@
     <div class="grid2">
       <div class="prose rv">
         <p>The unlicensed-reference flow had four beats to land, in order: a reference was used; you must license it to download; licensing supports the original creator and gets you both images; pricing is on the next screen.</p>
-        <p>The hardest decision was rejecting <strong>"Use without licensing"</strong> as a CTA — even though it tested as the clearest — because it implied users could proceed and assume the copyright risk themselves, which is legally wrong. I also banned <strong>"unlock"</strong> (paywall vocabulary), banned <strong>"free"</strong> anywhere (generating still costs credits), and rejected <strong>"Pre-shot images"</strong> as a tab label (ambiguous).</p>
+        <p>The hardest decision was rejecting <strong>"Use without licensing"</strong> as a CTA — even though it tested as the clearest — because it implied users could proceed and assume the copyright risk themselves, which is legally wrong.</p>
+        <p>I also banned <strong>"unlock"</strong> (paywall vocabulary), banned <strong>"free"</strong> anywhere (generating still costs credits), and rejected <strong>"Pre-shot images"</strong> as a tab label (ambiguous).</p>
         <p>User testing showed people assumed limited functionality without upfront licensing. So the CTA pair evolved to <strong>"Generate now, license later" / "License now"</strong>, equal prominence — leading with full functionality, because research kept surfacing a trial-first mindset.</p>
         <p>Legal confirmed the exact <em>moment</em> of licensing didn't matter, only that the requirement was always clear — which freed the flow to stay friction-light.</p>
       </div>
@@ -538,8 +541,12 @@
     <div class="grid2" style="margin-top:34px">
       <div class="prose rv">
         <h4 style="margin-top:0">The challenge</h4>
-        <p>Getty's prompt-based editing product layered natural-language editing onto Getty and iStock: type "make it night" and the image changes. The catch lived in the model stack — the editing model output 1K natively, and the AI enhancement that produced the larger files stock customers expect could <em>literally change the picture</em>. Internal QA had flagged altered textures, skin, even a tooth gap. Usage data showed users gravitate to the largest download option — exactly the one most likely to change their image.</p>
-        <p>Three problems stacked: <strong>mental-model load</strong> (three editing spaces, set-level vs single-image edits); <strong>the truth problem</strong> (internal QA language — "deformities," "artifacts" — could never ship, but its substance had to); and <strong>the trust problem</strong> (we couldn't recommend one option over another, and in a stakeholder dry-run my own pros/cons slides were called out as quietly steering the room).</p>
+        <p>Getty's prompt-based editing product layered natural-language editing onto Getty and iStock: type "make it night" and the image changes. The catch lived in the model stack — the AI enhancement that produced the larger files stock customers expect could <em>literally change the picture</em>. Internal QA had flagged altered textures, skin, even a tooth gap.</p>
+        <p>And usage data showed users gravitate to the largest download option — exactly the one most likely to change their image.</p>
+        <p>Three problems stacked:</p>
+        <p><strong>Mental-model load</strong> — three editing spaces, set-level vs single-image edits.</p>
+        <p><strong>The truth problem</strong> — internal QA language ("deformities," "artifacts") could never ship, but its substance had to.</p>
+        <p><strong>The trust problem</strong> — we couldn't recommend one option over another. And in a stakeholder dry-run, my own pros/cons slides were called out as quietly steering the room.</p>
       </div>
       <div class="prose rv">
         <h4 style="margin-top:0">My role</h4>
@@ -572,10 +579,13 @@
     <h4>Download copy: from selling to describing</h4>
     <div class="grid2">
       <div class="prose rv">
-        <p>The download modal iterated from overpromise ("Upscaled without changing your image" — false) toward a neutral system. The breakthrough was reframing: these are <strong>different behaviors, not pros and cons</strong>. "May change small features" isn't a con, and the ✓/✕ icons were quietly telling users what to pick. I dropped the judgment framing for a "What to expect" expander — both options written at equal length so neither reads as the winner.</p>
-        <p>That "Details" line is internal QA truth translated into user language: <strong>never ship the lab notebook, never hide its conclusions.</strong></p>
+        <p>The download modal iterated from overpromise ("Upscaled without changing your image" — false) toward a neutral system. The breakthrough was reframing: these are <strong>different behaviors, not pros and cons</strong>. "May change small features" isn't a con, and the ✓/✕ icons were quietly telling users what to pick.</p>
+        <p>I dropped the judgment framing for a "What to expect" expander — both options written at equal length so neither reads as the winner.</p>
+        <p class="pull">Never ship the lab notebook. Never hide its conclusions.</p>
+        <p>That "Details" line in the mock is exactly that rule at work — internal QA truth, translated into user language.</p>
         <h4>The sandbagging fix</h4>
-        <p>In a design-review dry-run, a design leader called out that one option's cons looked self-created — <em>sandbagging</em>. Rather than soften the deck, I diagnosed the mechanics: asymmetric framing, judgment words, quantity imbalance, softeners on one side only. Then I rewrote all five option slides symmetric and neutral, and built parallel framing sets so tone can swap without changing substance. The method was adopted into the team's design-review format.</p>
+        <p>In a design-review dry-run, a design leader called out that one option's cons looked self-created — <em>sandbagging</em>. Rather than soften the deck, I diagnosed the mechanics: asymmetric framing, judgment words, quantity imbalance, softeners on one side only.</p>
+        <p>Then I rewrote all five option slides symmetric and neutral, and built parallel framing sets so tone can swap without changing substance. The method was adopted into the team's design-review format.</p>
       </div>
       <div class="rv">
         <div class="mock">
@@ -642,7 +652,8 @@
       <div class="prose rv">
         <h4 style="margin-top:0">The challenge</h4>
         <p>Samsung Knox is the enterprise security platform IT admins use to manage fleets of corporate devices. The team was putting an AI assistant into that admin console, where a wrong answer can misconfigure security policy for thousands of phones. Over-trust (acting without review) is as much a failure mode here as under-trust (never adopting).</p>
-        <p>Heading into the beta, the guardrail tickets had <strong>no user-facing messages</strong> — interventions would have surfaced as raw refusals. The live prototype's block message read "your request contains content that violates our policies," which convicts the user on every false positive. The entry screen stacked five disclaimers into legal wallpaper and promised a session-export feature that didn't exist.</p>
+        <p>Heading into the beta, the guardrail tickets had <strong>no user-facing messages</strong> — interventions would have surfaced as raw refusals. The live prototype's block message read "your request contains content that violates our policies," which convicts the user on every false positive.</p>
+        <p>The entry screen stacked five disclaimers into legal wallpaper — and promised a session-export feature that didn't exist.</p>
         <h4>My role</h4>
         <p>UX content owner for the assistant's trust surface: sole author of the guardrail messaging document (v1–v4), the naming strategy, and the measurement framework; negotiator of disclaimer and consent copy with legal, design, PM, and engineering; and owner of a 46-screen copy review that set house style rules.</p>
         <div class="pills"><span class="pill">Enterprise AI</span><span class="pill">Safety &amp; refusal UX</span><span class="pill">Legal negotiation</span><span class="pill">Measurement</span></div>
@@ -650,7 +661,8 @@
       <div class="prose rv">
         <h4 style="margin-top:0">Untangling what the system actually does</h4>
         <p>I started by asking why there were so many guardrail triggers — and traced every one to an engineering ticket, a stakeholder comment, or a section of the internal guardrail policy. The provenance table went into the messaging doc itself, so every message could be defended by pointing at its source.</p>
-        <p>The audit caught a real conflation: one "rate limit" message was doing three different jobs. I separated <strong>input limit</strong>, <strong>output limit</strong>, and <strong>runtime limit</strong> — each with recovery advice the user can actually follow. The old copy told admins to "wait and try again" — right for throttling, wrong for the other two. Untangling system truth before writing copy is the job.</p>
+        <p>The audit caught a real conflation: one "rate limit" message was doing three different jobs. I separated <strong>input limit</strong>, <strong>output limit</strong>, and <strong>runtime limit</strong> — each with recovery advice the user can actually follow.</p>
+        <p>The old copy told admins to "wait and try again" — right for throttling, wrong for the other two. Untangling system truth before writing copy is the job.</p>
         <p class="pull">Refusal moments are where trust is won or lost — and exactly where teams spend the least design time. Nobody demos the block message.</p>
       </div>
     </div>
@@ -683,12 +695,15 @@
     <div class="grid2">
       <div class="prose rv">
         <h4>Disclaimers, consent, and the legal negotiation</h4>
-        <p>The entry screen stacked terms language, data-usage language, accuracy hedges, a translation warning, and an input warning. I lost the push to cut legally required lines — and won the fight that mattered: <strong>structure</strong>. One tightened paragraph up top, one persistent line under the input at the moment it matters. Pitching the change as structure-not-content is why legal said yes.</p>
-        <p>I rejected the translation warning's "use English for best results" — it reads as English-superiority and breaks when the user already <em>is</em> asking in English. A verb-level analysis landed: <em>"[The assistant] supports English. Translated responses may be less accurate."</em> I also caught a trust-breaking claim — a promised session-export feature that didn't exist — and replaced it with honest 30-day retention copy.</p>
+        <p>The entry screen stacked terms language, data-usage language, accuracy hedges, a translation warning, and an input warning. I lost the push to cut legally required lines — and won the fight that mattered: <strong>structure</strong>. One tightened paragraph up top, one persistent line under the input at the moment it matters.</p>
+        <p>Pitching the change as structure-not-content is why legal said yes.</p>
+        <p>I rejected the translation warning's "use English for best results" — it reads as English-superiority and breaks when the user already <em>is</em> asking in English. A verb-level analysis landed: <em>"[The assistant] supports English. Translated responses may be less accurate."</em></p>
+        <p>I also caught a trust-breaking claim — that promised export feature — and replaced it with honest 30-day retention copy.</p>
       </div>
       <div class="prose rv">
         <h4>Naming and measurement</h4>
-        <p>The renaming brief came with hard constraints (no "AI" in the name, must fit the product family). I rebuilt the strategy on naming research; three team favorites died on receipts, not taste: a trademark collision, a toxic association, a partner's product name. For measurement, I wrote the framework that answers "what's the KPI?" with <em>there isn't one</em> — four pillars, with guardrail metrics first-class (rollback frequency, bulk actions without review): success is not speed at the cost of control.</p>
+        <p>The renaming brief came with hard constraints (no "AI" in the name, must fit the product family). I rebuilt the strategy on naming research; three team favorites died on receipts, not taste: a trademark collision, a toxic association, a partner's product name.</p>
+        <p>For measurement, I wrote the framework that answers "what's the KPI?" with <em>there isn't one</em> — four pillars, with guardrail metrics first-class (rollback frequency, bulk actions without review). Success is not speed at the cost of control.</p>
       </div>
     </div>
 
@@ -883,7 +898,8 @@
         <h2 style="margin-top:18px">The breadth is <em>the point.</em></h2>
       </div>
       <div class="prose rv">
-        <p>I'm a self-taught content designer from Vancouver who worked from Best Buy's product catalog to running content design for AI products at three major companies at once. No degree — just twelve years of treating every complex system as something that can be made legible, and building the system that makes it so. And the AI thread isn't new: I was writing Maya, Lemonade's insurance chatbot, back in 2018 — before "conversational AI" had a design discipline attached to it. Lemonade taught me a company can talk like a person. Enterprise taught me exactly when it shouldn't.</p>
+        <p>I'm a self-taught content designer from Vancouver who worked from Best Buy's product catalog to running content design for AI products at three major companies at once. No degree — just twelve years of treating every complex system as something that can be made legible, and building the system that makes it so.</p>
+        <p>And the AI thread isn't new: I was writing Maya, Lemonade's insurance chatbot, back in 2018 — before "conversational AI" had a design discipline attached to it. Lemonade taught me a company can talk like a person. Enterprise taught me exactly when it shouldn't.</p>
         <p>My instinct when facing chaos is to build a framework that makes the chaos navigable: glossaries, taxonomies, response systems, audit pipelines, measurement frameworks. I win through thoroughness, not flash — the signature work here isn't a beautiful screen, it's six thousand terms catalogued so that seven products finally speak one language.</p>
         <p>And I treat feedback about my work the way I treat feedback about copy: as data. The sandbagging story in Chapter 02 is on this site <em>because</em> it started with someone telling me my slides were biased.</p>
         <div style="margin-top:26px">
