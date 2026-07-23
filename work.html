@@ -358,6 +358,9 @@
   .foot-big a:hover{color:var(--accent)}
   .foot-meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:60px;border-top:2px solid var(--ink);padding-top:20px;font-family:var(--sans);font-size:13px;color:var(--muted)}
   .made{font-family:var(--sans);font-size:12.5px;color:var(--faint);margin-top:26px;max-width:64ch}
+  .made-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:0 70px;align-items:start;border-top:1px solid var(--rule);margin-top:34px}
+  .made-grid .made{margin-top:26px}
+  @media(max-width:820px){.made-grid{grid-template-columns:1fr}}
 
   [id]{scroll-margin-top:70px}
   svg.draw path,svg.draw circle,svg.draw rect{stroke-dasharray:var(--len,300);stroke-dashoffset:var(--len,300)}
@@ -1092,9 +1095,13 @@
       <span>Zameer Ali · Senior Content Designer · Vancouver, BC · open to remote (Canada)</span>
       <span><a href="mailto:Zameer_Ali@live.com">Zameer_Ali@live.com</a> · <a href="https://linkedin.com/in/zameer-ali">linkedin.com/in/zameer-ali</a> · <a href="index.html">the 90-second version</a></span>
     </div>
-    <p class="made">Public-facing work: gettyimages.ca/ai/generation · istockphoto.com/ai · shopify.com/ca/magic · shopify.com/ca/capital · samsungknox.com (say hi to the Guide)</p>
+    <div class="made-grid">
     <p class="made"><b style="color:var(--ink)">Colophon — the design follows the content rules it describes.</b> Two typefaces, two registers: Fraunces speaks, Space Grotesk labels — narrative voice and system voice, kept apart the way they should be in product. One meaning per color, the rule from Chapter 03's product applied to its own portfolio: teal is the only accent; red touches nothing but rejected copy, green nothing but what shipped. The "show the fix" exhibits make you sit with the broken version first, because that's the order users experience it in. And every image earns its place — real artifacts, recreated interfaces carrying shipped copy, or scenes drawn in the site's own ink-and-teal line. Content design is the art direction.</p>
-    <p class="made">Built AI-first — researched, drafted, and assembled with AI agents working from my own project notes, then edited by hand. It's the same way I work in product: the tools do the assembly; the judgment stays mine. Employer-confidential details are generalized throughout; I go deeper in conversation.</p>
+    <div>
+      <p class="made"><b style="color:var(--ink)">Public-facing work</b> — gettyimages.ca/ai/generation · istockphoto.com/ai · shopify.com/ca/magic · shopify.com/ca/capital · samsungknox.com (say hi to the Guide)</p>
+      <p class="made"><b style="color:var(--ink)">Built AI-first</b> — researched, drafted, and assembled with AI agents working from my own project notes, then edited by hand. It's the same way I work in product: the tools do the assembly; the judgment stays mine. Employer-confidential details are generalized throughout; I go deeper in conversation.</p>
+    </div>
+    </div>
   </div>
 </footer>
 </main>
