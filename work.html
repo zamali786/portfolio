@@ -47,7 +47,8 @@
   .monogram b{color:var(--accent);font-weight:400;font-style:italic}
   body.in-night .monogram{color:var(--night-text)}
   .nav-links{margin-left:auto;display:flex;gap:20px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-  .nav-links a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s}
+  .nav-links a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s;white-space:nowrap}
+  @media(max-width:900px){.nav-links{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}.nav-links::-webkit-scrollbar{display:none}}
   .nav-links a:hover{color:var(--accent);border-bottom-color:var(--accent)}
   body.in-night .nav-links a{color:var(--night-muted)}
   body.in-night .nav-links a:hover{color:var(--night-accent);border-bottom-color:var(--night-accent)}
@@ -348,6 +349,7 @@
     .hero h1 .word{opacity:1;transform:none;transition:none}
   }
 </style>
+<noscript><style>.rv,.hero h1 .word{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -445,6 +447,7 @@
       <div class="tldr-head"><b>The 60-second version</b><span>full chapter ≈ 4 min</span></div>
       <div class="tldr-row"><div class="k">The problem</div><div>Let users generate with stock images they haven't licensed yet — on a platform whose whole business is licensing. Nobody gets to feel trapped.</div></div>
       <div class="tldr-row"><div class="k">The move</div><div>A locked vocabulary, disabled states that give the reason, and a CTA pair that leads with freedom: "Generate now, license later."</div></div>
+      <div class="tldr-row"><div class="k">The constraint</div><div>No invented certainty, no hidden obligation — and the clearest CTA in testing was legally wrong.</div></div>
       <div class="tldr-row"><div class="k">The result</div><div>Shipped on two brands. In testing: 86% comprehension, 100% downloaded. The pattern set became the foundation of Getty's next product.</div></div>
     </div>
 
@@ -452,8 +455,8 @@
       <div class="prose rv">
         <h4 style="margin-top:0">The challenge</h4>
         <p>Getty Images' commercially safe AI generator needed <strong>reference images</strong>: pair a text prompt with an existing image and choose whether it influences the <em>color</em> or the <em>composition</em> of a new generation. The hardest phase let users reference <strong>stock images they hadn't licensed yet</strong> — on a platform whose entire business is licensing.</p>
-        <p class="pull">Research kept returning one theme: users didn't resent paying — they resented finding out late.</p>
-        <p>"Bait-and-switch" paywalls were the top trust killer. So the brief became: let someone generate freely with an image they haven't paid for, make the eventual license requirement unmissable, and never once feel like a trap.</p>
+        <p class="pull">Users didn't fear the price. They feared the surprise.</p>
+        <p>Research kept returning that theme: nobody minded paying — everybody minded finding out late. "Bait-and-switch" paywalls were the top trust killer. So the brief became: let someone generate freely with an image they haven't paid for, make the eventual license requirement unmissable, and never once feel like a trap.</p>
         <h4>My role</h4>
         <p>Sole content designer with two product designers, a researcher, and a PO. I owned the copy system end to end — feature copy, education, error/empty/disabled states — plus launch QA, research distillation, upload legal and privacy language, and stakeholder walkthrough scripts.</p>
         <p>More than the strings: I owned the strategy for how users would <em>understand</em> reference images at all — progressive disclosure of the right information at the right moment, reasoned and researched, coordinated across design, engineering, and the model vendor. We A/B-tested designs and content variants with our researcher, and I presented direction up to the executive level through QA and launch.</p>
@@ -541,6 +544,7 @@
       <div class="tldr-head"><b>The 60-second version</b><span>full chapter ≈ 4 min</span></div>
       <div class="tldr-row"><div class="k">The problem</div><div>An AI enhancement could quietly change your picture — textures, skin, a tooth. Internal QA knew. The download screen didn't.</div></div>
       <div class="tldr-row"><div class="k">The move</div><div>Three verbs that carry scope, a deliberately robotic response vocabulary, and download copy rewritten from selling to describing.</div></div>
+      <div class="tldr-row"><div class="k">The constraint</div><div>We couldn't recommend one option over the other — and the truth lived in internal QA language that could never ship.</div></div>
       <div class="tldr-row"><div class="k">The result</div><div>Vocabulary locked into engineering handoff. The honest-framing method became the team's review format. The copy pass caught a production bug.</div></div>
     </div>
 
@@ -651,6 +655,7 @@
       <div class="tldr-head"><b>The 60-second version</b><span>full chapter ≈ 4 min</span></div>
       <div class="tldr-row"><div class="k">The problem</div><div>An AI assistant heading into a security console's beta with raw refusals — block messages that convicted the user on every false positive.</div></div>
       <div class="tldr-row"><div class="k">The move</div><div>Thirteen guardrail messages, each traceable to its source. A disclaimer restructure legal said yes to. One "may" doing the ethical work.</div></div>
+      <div class="tldr-row"><div class="k">The constraint</div><div>One configurable message for every filter type, a security rule against naming which guardrail fired — and a user who deserves not to be accused.</div></div>
       <div class="tldr-row"><div class="k">The result</div><div>Nine messages shipped in beta. A false feature promise became honest retention copy. 46 screens reviewed, ~55 findings.</div></div>
     </div>
 
@@ -1004,7 +1009,7 @@
   /* hero word cascade */
   var words=document.querySelectorAll('#heroline .word');
   if(reduced){words.forEach(function(w){w.classList.add('in')});}
-  else{words.forEach(function(w,i){setTimeout(function(){w.classList.add('in')},250+i*130);});}
+  else{words.forEach(function(w,i){setTimeout(function(){w.classList.add('in')},90+i*80);});}
 
   /* self-edit line */
   var el=document.getElementById('editline'),note=document.getElementById('editnote');
@@ -1016,7 +1021,7 @@
     function typeDraft(){if(i<=draft.length){el.innerHTML='<span>'+draft.slice(0,i)+'</span><span class="caret"></span>';i+=2;setTimeout(typeDraft,22);}else{setTimeout(strike,700);}}
     function strike(){el.innerHTML='<span class="strike">'+draft+'</span><span class="caret"></span>';setTimeout(typeFix,900);}
     function typeFix(){if(j<=fin.length){el.innerHTML='<span class="strike">'+draft+'</span><br><span class="fix">'+fin.slice(0,j)+'</span><span class="caret"></span>';j++;setTimeout(typeFix,32);}else{el.innerHTML='<span class="strike">'+draft+'</span><br><span class="fix">'+fin+'</span>';note.classList.add('show');}}
-    setTimeout(typeDraft,1100);
+    setTimeout(typeDraft,600);
   }
 
   /* scroll reveal */
