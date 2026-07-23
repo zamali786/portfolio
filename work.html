@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zameer Ali — Words that do the work</title>
-<meta name="description" content="Content design for complicated products. Seven case studies in AI trust, language systems, and governance — Getty Images, Samsung Knox, Autodesk, Shopify, Lemonade. Twelve years of making complex systems legible.">
+<meta name="description" content="Content design for complicated products. Nine case studies in AI trust, language systems, strategy, and governance — Getty Images, Samsung Knox, Autodesk, Shopify, Lemonade. Twelve years of making complex systems legible.">
 <meta property="og:title" content="Zameer Ali — Words that do the work">
-<meta property="og:description" content="Content design for complicated products. Seven case studies in AI trust, language systems, and governance.">
+<meta property="og:description" content="Content design for complicated products. Nine case studies in AI trust, language systems, strategy, and governance.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zamali786.github.io/portfolio/work.html">
 <meta property="og:image" content="https://zamali786.github.io/portfolio/og.jpg">
@@ -286,6 +286,12 @@
   .ch-night .mrow .mwith,.ch-night .moved .mnote{color:var(--night-muted)}
   @media(max-width:640px){.mrow{grid-template-columns:1fr;gap:4px}.mrow .marr{display:none}}
 
+  .uiab-toggle{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .uiab-toggle button{font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:.04em;padding:9px 16px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;cursor:pointer;color:var(--ink);transition:background .2s,color .2s}
+  .uiab-toggle button.on{background:var(--ink);color:#fff}
+  .uiab-pane{animation:uifade .35s ease}
+  @keyframes uifade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.uiab-pane{animation:none}}
   /* tldr card */
   .tldr{margin-top:38px;border:2px solid var(--ink);background:#fff;font-family:var(--sans)}
   .tldr-head{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:12px 18px;border-bottom:2px solid var(--ink)}
@@ -371,7 +377,7 @@
       <a href="#cs1">01 Licensing</a>
       <a href="#cs2">02 Language</a>
       <a href="#cs3">03 Guardrails</a>
-      <a href="#studies">04–07</a>
+      <a href="#studies">04–09</a>
       <a href="#stack">The Stack</a>
       <a href="#ledger">The Ledger</a>
       <a href="#about">About</a>
@@ -388,7 +394,7 @@
   </h1>
   <p class="editline" id="editline" aria-label="I make complicated products make sense."><noscript>I make complicated products make sense.</noscript></p>
   <p class="edit-note" id="editnote">— editing is the job.</p>
-  <div class="scroll-cue">Scroll · seven case studies, one thesis, one ledger, an archive, no jargon</div>
+  <div class="scroll-cue">Scroll · nine case studies, one thesis, one ledger, an archive, no jargon</div>
 </header>
 
 <div class="marquee" aria-hidden="true">
@@ -400,7 +406,7 @@
 <main id="main">
 <div class="stats">
   <div class="stat rv"><div class="n"><em>~6,000</em></div><div class="l">UI terms across 7 products brought under one governed vocabulary — a framework fellow content designers now run</div></div>
-  <div class="stat rv"><div class="n"><em>7</em></div><div class="l">AI products shaped since 2018 — Maya to agentic enterprise assistants; the latest strategy built 0→1 and socialized to directors, VPs, and executives</div></div>
+  <div class="stat rv"><div class="n"><em>7</em></div><div class="l">AI products shaped since 2018 — an insurance chatbot to agentic enterprise assistants; the latest strategy built 0→1 and socialized to directors, VPs, and executives</div></div>
   <div class="stat rv"><div class="n"><em>28+</em></div><div class="l">organizations on the résumé, across a dozen industries — universities, utilities, retailers, insurers. Complicated is the constant.</div></div>
   <div class="stat rv"><div class="n"><em>13</em></div><div class="l">response classes in a design system for agentic AI — the framework that unblocked a struggling design team</div></div>
   <div class="stat rv"><div class="n"><em>702</em></div><div class="l">real conversations piloted through an LLM evaluation framework I authored — "good" now has a definition</div></div>
@@ -410,14 +416,14 @@
 <div class="filterwrap" id="filter">
   <div class="fq">What brings you here? Pick a lens — the studies rearrange themselves.</div>
   <div class="chips" role="group" aria-label="Filter case studies">
-    <button class="chip active" data-f="all">Everything · 7</button>
+    <button class="chip active" data-f="all">Everything · 9</button>
     <button class="chip" data-f="featured">Just the highlights · 3</button>
-    <button class="chip" data-f="ai">AI behavior · 5</button>
+    <button class="chip" data-f="ai">AI behavior · 6</button>
     <button class="chip" data-f="trust">Trust &amp; honest language · 4</button>
-    <button class="chip" data-f="gov">Governance &amp; audits · 3</button>
-    <button class="chip" data-f="lang">Language systems &amp; naming · 4</button>
+    <button class="chip" data-f="gov">Governance &amp; audits · 3</button><button class="chip" data-f="strat">Strategy &amp; leadership · 4</button>
+    <button class="chip" data-f="lang">Language systems &amp; naming · 5</button>
   </div>
-  <p class="fstatus" id="fstatus" aria-live="polite">All seven. The full syllabus.</p>
+  <p class="fstatus" id="fstatus" aria-live="polite">All nine. The full syllabus.</p>
 </div>
 
 <div class="chapters">
@@ -433,16 +439,18 @@
     <p>Three verbs that carry scope, a deliberately robotic vocabulary, and download copy that describes AI instead of selling it.</p>
     <span class="go">Read →</span>
   </a>
-  <a class="chcard night rv" data-t="ai trust featured" href="#cs3">
+  <a class="chcard night rv" data-t="ai trust strat featured" href="#cs3">
     <div class="n sans">Chapter 03 · Samsung Knox</div>
     <h3>The language of no</h3>
     <p>What a security product's AI says when it refuses, fails, or asks permission. This chapter runs dark — so does the subject.</p>
     <span class="go">Read →</span>
   </a>
   <a class="chcard rv" data-t="gov lang" href="#s04"><div class="n sans">Study 04 · Samsung Knox</div><h3>Six thousand terms, one vocabulary</h3><p>The suite's first complete terminology inventory — and the governance to keep it honest.</p><span class="go">Read →</span></a>
-  <a class="chcard rv" data-t="ai lang" href="#s05"><div class="n sans">Study 05 · Samsung Knox</div><h3>One rule, thirteen responses</h3><p>A design system for an agentic AI — with a runtime contract the model itself is held to.</p><span class="go">Read →</span></a>
+  <a class="chcard rv" data-t="ai lang strat" href="#s05"><div class="n sans">Study 05 · Samsung Knox</div><h3>One rule, thirteen responses</h3><p>A design system for an agentic AI — with a runtime contract the model itself is held to.</p><span class="go">Read →</span></a>
   <a class="chcard rv" data-t="ai gov" href="#s06"><div class="n sans">Study 06 · Autodesk</div><h3>The missing judgment system</h3><p>An LLM-as-judge evaluation framework — and catching the auditor AI hallucinating mid-audit.</p><span class="go">Read →</span></a>
   <a class="chcard rv" data-t="trust gov lang" href="#s07"><div class="n sans">Study 07 · iStock</div><h3>Renaming without breaking trust</h3><p>158 text nodes, one source of truth, no euphemisms — copy accuracy as risk management.</p><span class="go">Read →</span></a>
+  <a class="chcard rv" data-t="ai strat" href="#s08"><div class="n sans">Study 08 · Samsung Knox</div><h3>Setting the direction</h3><p>Five documents, one two-volume framework — and the coverage map that told the team where it stood. Presented up to the executive level.</p><span class="go">Read →</span></a>
+  <a class="chcard rv" data-t="strat lang" href="#s09"><div class="n sans">Study 09 · Best Buy Canada</div><h3>Zero to a practice of fifteen</h3><p>The org story: content strategy argued into a discipline, then multiplied across eight streams.</p><span class="go">Read →</span></a>
 </div>
 
 <!-- ============ CHAPTER 1 ============ -->
@@ -607,7 +615,24 @@
         <p>In a design-review dry-run, a design leader called out that one option's cons looked self-created — <em>sandbagging</em>. Rather than soften the deck, I diagnosed the mechanics: asymmetric framing, judgment words, quantity imbalance, softeners on one side only.</p>
         <p>Then I rewrote all five option slides symmetric and neutral, and built parallel framing sets so tone can swap without changing substance. The method was adopted into the team's design-review format.</p>
       </div>
-      <div class="rv">
+      <div class="rv uiab" id="uiab2c">
+        <div class="uiab-toggle" role="group" aria-label="Before and after">
+          <button type="button" class="on" data-v="before">What it looked like</button>
+          <button type="button" data-v="after">How content reshaped it →</button>
+        </div>
+        <div class="uiab-pane" data-pane="before">
+        <div class="mock">
+          <div class="sec" style="margin-top:0">Your modified image</div>
+          <h5 style="margin-bottom:2px">Higher resolution</h5>
+          <p style="margin-bottom:4px"><span style="color:var(--good)">✓</span> Upscaled without changing your image<br><span style="color:var(--good)">✓</span> Best for large formats</p>
+          <div style="border-top:1px solid var(--paper-rule);margin:12px 0"></div>
+          <h5 style="margin-bottom:2px">Enhanced detail</h5>
+          <p><span style="color:var(--good)">✓</span> Sharper, more detailed textures<br><span style="color:var(--bad)">✕</span> May change small features</p>
+        </div>
+        <p class="caption"><b>Before</b> — recreated. The ✓/✕ icons quietly picked a winner, and the top claim ("without changing your image") wasn't true.</p>
+        </div>
+        <div class="uiab-pane" data-pane="after" hidden>
+        
         <div class="mock">
           <div class="sec" style="margin-top:0">Your modified image</div>
           <h5 style="margin-bottom:2px">Higher resolution <span style="color:var(--faint);font-weight:400;font-size:12px">— 4096 × 2732 px · JPEG</span></h5>
@@ -619,6 +644,8 @@
           <details><summary>What to expect</summary><div class="d-body"><b>What happens</b> — Adds sharper, more detailed textures.<br><b>Details</b> — Small features (like skin, hair, or text) may look slightly different.<br><b>Best for</b> — When you want sharper detail, even if some features are reinterpreted.</div></details>
         </div>
         <p class="caption"><b>Exhibit 2C</b> — The final neutral download module, working. Both options same length, one benefit + one trade-off each, no icons implying a winner. (Yes, the expander expands.)</p>
+      
+        </div>
       </div>
     </div>
 
@@ -654,7 +681,7 @@
 </section>
 
 <!-- ============ CHAPTER 3 (NIGHT) ============ -->
-<section class="ch ch-night" id="cs3" data-t="ai trust featured">
+<section class="ch ch-night" id="cs3" data-t="ai trust strat featured">
   <div class="ch-in">
     <div class="bignum" aria-hidden="true">03</div>
     <div class="kicker" style="color:var(--night-accent)">Chapter 03 · Samsung Knox · this one runs dark, like the subject</div>
@@ -756,9 +783,9 @@
 
 <!-- ============ FURTHER STUDIES ============ -->
 <section class="studies" id="studies">
-  <div class="kicker">Further studies · 04 – 07</div>
+  <div class="kicker">Further studies · 04 – 09</div>
   <h2 class="rv">The supporting evidence</h2>
-  <p class="sub rv">Four more, told shorter — each one ending with what it cost me to learn. Full versions available in conversation, where the good details live anyway.</p>
+  <p class="sub rv">Six more, told shorter — each one ending with what it cost me to learn. Full versions available in conversation, where the good details live anyway.</p>
   <div class="sgrid">
 
     <div class="study rv" id="s04" data-t="gov lang">
@@ -775,7 +802,7 @@
       <p class="slesson">"AI clustering fails silently in both directions. The fix is the same either way: keep the variants visible, and put a human between the algorithm and the merge."</p>
     </div>
 
-    <div class="study rv" id="s05" data-t="ai lang">
+    <div class="study rv" id="s05" data-t="ai lang strat">
       <div class="n">Study 05 · Samsung Knox</div>
       <h3>One rule, thirteen responses: a design system for an agentic AI</h3>
       <p class="lede">An assistant that <em>acts</em> — pulling logs, re-queuing firmware, drafting policy — can't let "here's my plan" be mistaken for "I already did it." I designed the response system: 13 classes, a classification router, seven reusable chassis, and a model-facing runtime contract. This was 0→1 content strategy for the assistant — built, then socialized: cross-functional partners first, then directors, VPs, and executives for buy-in on direction.</p>
@@ -816,6 +843,32 @@
         <li>Specified the conditional-messaging logic (plan tier × grandfathering status), because content design here meant writing the logic as well as the strings.</li>
       </ul>
       <p class="slesson">"Precision and kindness turned out to be the same edit — the softer drafts weren't gentler, they were wrong."</p>
+    </div>
+
+    <div class="study rv" id="s08" data-t="ai strat">
+      <div class="n">Study 08 · Samsung Knox</div>
+      <h3>Setting the direction: a two-volume AI UX framework</h3>
+      <p class="lede">The team had five overlapping documents — tone, guardrails, integration, measurement — and no shared map. I consolidated them into a two-volume AI UX Framework, mapped coverage against all 17 framework nodes, and presented the direction to directors, VPs, and executives. 0→1 strategy work, not a writing assignment.</p>
+      <ul>
+        <li><b>The coverage map:</b> 15 of 17 nodes covered; my two structural additions — Integration Models, and Measurement &amp; Evaluation — adopted into the hierarchy itself.</li>
+        <li>I pushed back on the framework I was consolidating: its "Safety" principle and "Safety Check" flow were the same idea at two altitudes, and its prompt-pattern section was consumer-chatbot coaching that didn't fit an admin tool.</li>
+        <li>Teammate review integrated as five tracked items, not silent edits — and a 19-item open-decisions ledger kept <em>inside</em> the document, gaps marked as gaps.</li>
+        <li>Per the team's own update: the framework is "now being pushed forward as a foundation."</li>
+      </ul>
+      <p class="slesson">"A framework that hides its holes gets trusted for the wrong reasons. Mark the gaps — that's what makes the rest believable."</p>
+    </div>
+
+    <div class="study rv" id="s09" data-t="strat lang">
+      <div class="n">Study 09 · Best Buy Canada</div>
+      <h3>Zero to a practice of fifteen</h3>
+      <p class="lede">I arrived at a company that had lost all of its content strategists, and left behind a community of fifteen embedded across eight streams — while rebuilding the product catalog's information architecture for a Marketplace launch that took 65K SKUs to a million in year one.</p>
+      <ul>
+        <li>The taxonomy was the trojan horse: every stream that touched the catalog needed language decisions, and every language decision needed an owner.</li>
+        <li>Argued content strategy into a discipline, then grew it as a community of practice — embedded in the streams, not centralized under me.</li>
+        <li>NN/g-referenced information architecture at national retail scale.</li>
+        <li>The practice outlived my tenure — the earliest proof of the pattern this portfolio keeps repeating: build the system, hand it over.</li>
+      </ul>
+      <p class="slesson">"The multiplication is the deliverable. Fifteen people do more than one ever could — including me."</p>
     </div>
 
   </div>
@@ -1067,6 +1120,15 @@
     document.body.classList.toggle('in-night',inNight);
   },{passive:true});
 
+  /* UI before/after toggles */
+  document.querySelectorAll('.uiab').forEach(function(box){
+    var btns=box.querySelectorAll('.uiab-toggle button');
+    btns.forEach(function(b){b.addEventListener('click',function(){
+      btns.forEach(function(x){x.classList.remove('on')}); b.classList.add('on');
+      box.querySelectorAll('.uiab-pane').forEach(function(p){p.hidden=(p.dataset.pane!==b.dataset.v)});
+    });});
+  });
+
   /* show-the-fix buttons */
   document.querySelectorAll('.fixbtn[data-target]').forEach(function(btn){
     btn.dataset.orig=btn.textContent;
@@ -1080,10 +1142,11 @@
 
   /* facet filter */
   var STATUS={
-    all:"All seven. The full syllabus.",
+    all:"All nine. The full syllabus.",
     featured:"The three I'd show a hiring panel first. Start here.",
     ai:"Five studies where the words meet the model.",
     trust:"Four studies about not lying to users — even by accident.",
+    strat:"The direction-setting shelf — 0→1 strategy, frameworks, and the practice that outlived the tenure.",
     gov:"Three studies of the unglamorous, load-bearing work. Which is rather the point.",
     lang:"Four studies where the deliverable was a vocabulary."
   };
