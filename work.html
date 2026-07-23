@@ -240,8 +240,10 @@
   .stack h2 em{font-style:italic;color:var(--accent)}
   .stack .sub{font-family:var(--sans);color:var(--muted);font-size:14.5px;margin-top:14px;max-width:60ch}
   .layers{margin-top:50px}
-  .layer{display:grid;grid-template-columns:110px 210px 1fr;gap:20px;padding:22px 0;border-top:1px solid var(--paper-rule);align-items:baseline}
-  @media(max-width:760px){.layer{grid-template-columns:70px 1fr};.layer .what{grid-column:2}}
+  .layer{display:grid;grid-template-columns:44px 110px 210px 1fr;gap:20px;padding:22px 0;border-top:1px solid var(--paper-rule);align-items:baseline}
+  .lyr-ico{align-self:center}
+  .tldr-head svg{flex:0 0 auto}
+  @media(max-width:760px){.layer{grid-template-columns:70px 1fr}.layer .what{grid-column:2}.lyr-ico{display:none}}
   .layer .yr{font-family:var(--sans);font-size:13px;color:var(--accent);font-weight:700}
   .layer .verb{font-size:clamp(20px,2.6vw,28px);font-style:italic}
   .layer .what{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.6;max-width:56ch}
@@ -338,6 +340,9 @@
   .made{font-family:var(--sans);font-size:12.5px;color:var(--faint);margin-top:26px;max-width:64ch}
 
   [id]{scroll-margin-top:70px}
+  svg.draw path,svg.draw circle,svg.draw rect{stroke-dasharray:var(--len,300);stroke-dashoffset:var(--len,300)}
+  svg.draw.drawn path,svg.draw.drawn circle,svg.draw.drawn rect{transition:stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1);stroke-dashoffset:0}
+  @media (prefers-reduced-motion: reduce){svg.draw path,svg.draw circle,svg.draw rect{stroke-dasharray:none;stroke-dashoffset:0}}
   /* reveal */
   .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
   .rv.in{opacity:1;transform:none}
@@ -444,7 +449,7 @@
     <div class="meta">Sole content designer on the working team · April 2024 – May 2025 · Shipped on two brands</div>
 
     <div class="tldr rv">
-      <div class="tldr-head"><b>The 60-second version</b><span>full chapter ≈ 4 min</span></div>
+      <div class="tldr-head"><span style="display:flex;align-items:center;gap:12px"><svg class="draw" width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="28" height="24" rx="3"/><path d="M9 26 L17 19 L23 24 L29 18 L33 22"/><path d="M33 20 l8 6 -3 10 -8 -6 z" stroke="#0e5a63"/><circle cx="36.5" cy="28.5" r="1.4" stroke="#0e5a63"/></svg><b>The 60-second version</b></span><span>full chapter ≈ 4 min</span></div>
       <div class="tldr-row"><div class="k">The problem</div><div>Let users generate with stock images they haven't licensed yet — on a platform whose whole business is licensing. Nobody gets to feel trapped.</div></div>
       <div class="tldr-row"><div class="k">The move</div><div>A locked vocabulary, disabled states that give the reason, and a CTA pair that leads with freedom: "Generate now, license later."</div></div>
       <div class="tldr-row"><div class="k">The constraint</div><div>No invented certainty, no hidden obligation — and the clearest CTA in testing was legally wrong.</div></div>
@@ -541,7 +546,7 @@
     <div class="meta">Content designer, prompt-based editing · 2025 – 2026 · The sequel to Chapter 01 — two years of continuity on one product family</div>
 
     <div class="tldr rv">
-      <div class="tldr-head"><b>The 60-second version</b><span>full chapter ≈ 4 min</span></div>
+      <div class="tldr-head"><span style="display:flex;align-items:center;gap:12px"><svg class="draw" width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="26" height="22" rx="3"/><circle cx="14" cy="18" r="3"/><path d="M5 28 L14 22 L22 27 L31 21"/><path d="M36 12 v8 M32 16 h8 M36 30 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5 z" stroke="#0e5a63"/></svg><b>The 60-second version</b></span><span>full chapter ≈ 4 min</span></div>
       <div class="tldr-row"><div class="k">The problem</div><div>An AI enhancement could quietly change your picture — textures, skin, a tooth. Internal QA knew. The download screen didn't.</div></div>
       <div class="tldr-row"><div class="k">The move</div><div>Three verbs that carry scope, a deliberately robotic response vocabulary, and download copy rewritten from selling to describing.</div></div>
       <div class="tldr-row"><div class="k">The constraint</div><div>We couldn't recommend one option over the other — and the truth lived in internal QA language that could never ship.</div></div>
@@ -652,7 +657,7 @@
     <div class="meta">UX content owner, AI assistant trust surface · Knox admin console · 2025 – 2026</div>
 
     <div class="tldr rv">
-      <div class="tldr-head"><b>The 60-second version</b><span>full chapter ≈ 4 min</span></div>
+      <div class="tldr-head"><span style="display:flex;align-items:center;gap:12px"><svg class="draw" width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8 h28 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-16 l-8 8 v-8 h-4 a4 4 0 0 1 -4 -4 v-14 a4 4 0 0 1 4 -4z"/><path d="M24 12 l8 3 v5 c0 5 -3.5 8 -8 10 c-4.5 -2 -8 -5 -8 -10 v-5 z" stroke="#0e5a63"/></svg><b>The 60-second version</b></span><span>full chapter ≈ 4 min</span></div>
       <div class="tldr-row"><div class="k">The problem</div><div>An AI assistant heading into a security console's beta with raw refusals — block messages that convicted the user on every false positive.</div></div>
       <div class="tldr-row"><div class="k">The move</div><div>Thirteen guardrail messages, each traceable to its source. A disclaimer restructure legal said yes to. One "may" doing the ethical work.</div></div>
       <div class="tldr-row"><div class="k">The constraint</div><div>One configurable message for every filter type, a security rule against naming which guardrail fired — and a user who deserves not to be accused.</div></div>
@@ -818,11 +823,11 @@
     <h2 class="rv">The material never changed. What it <em>operates on</em> did.</h2>
     <p class="sub rv">Twelve years of the same craft — language — applied one layer deeper into the machine each time. This is why the AI work isn't a pivot. It's the same job, five levels down — and the descent is deliberate. This is the long game.</p>
     <div class="layers">
-      <div class="layer rv"><div class="yr">2014</div><div class="verb">Words organize a catalog.</div><div class="what">Best Buy — taxonomy, IA, and content strategy for a product catalog at national scale. Language as structure.</div></div>
-      <div class="layer rv"><div class="yr">2018</div><div class="verb">Words become a conversation.</div><div class="what">Lemonade — Maya, an AI insurance chatbot. The first time my words were performed by a machine instead of read beside one.</div></div>
-      <div class="layer rv"><div class="yr">2024</div><div class="verb">Words explain the model.</div><div class="what">Getty Images — generative tools where the copy's job is honest expectation-setting for probabilistic behavior: what changed, why, and what it costs.</div></div>
-      <div class="layer rv"><div class="yr">2025</div><div class="verb">Words constrain the model.</div><div class="what">Samsung Knox — guardrail messaging, refusal language, consent, and a response grammar the model itself is contractually held to.</div></div>
-      <div class="layer rv"><div class="yr">2026</div><div class="verb">Words judge the model.</div><div class="what">Autodesk — evaluation rubrics, failure taxonomies, and audit workflows: deciding what "good" means, then measuring the machine against it.</div></div>
+      <div class="layer rv"><div class="lyr-ico"><svg class="draw" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14 h14 v10 h-14z M28 14 h14 v10 h-14z M6 30 h14 v10 h-14z" /><path d="M28 30 h14 v10 h-14z" stroke="#0e5a63"/></svg></div><div class="yr">2014</div><div class="verb">Words organize a catalog.</div><div class="what">Best Buy — taxonomy, IA, and content strategy for a product catalog at national scale. Language as structure.</div></div>
+      <div class="layer rv"><div class="lyr-ico"><svg class="draw" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10 h22 a3 3 0 0 1 3 3 v8 a3 3 0 0 1 -3 3 h-12 l-6 6 v-6 h-4 a3 3 0 0 1 -3 -3 v-8 a3 3 0 0 1 3 -3z"/><path d="M20 28 h19 a3 3 0 0 1 3 3 v6 a3 3 0 0 1 -3 3 h-3 v5 l-5 -5 h-11 a3 3 0 0 1 -3 -3 v-2" stroke="#0e5a63"/></svg></div><div class="yr">2018</div><div class="verb">Words become a conversation.</div><div class="what">Lemonade — Maya, an AI insurance chatbot. The first time my words were performed by a machine instead of read beside one.</div></div>
+      <div class="layer rv"><div class="lyr-ico"><svg class="draw" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="6" width="26" height="34" rx="3"/><path d="M13 14 h16 M13 20 h16 M13 26 h10"/><path d="M28 30 l4 4 8 -8" stroke="#0e5a63"/><path d="M13 32 h8" /></svg></div><div class="yr">2024</div><div class="verb">Words explain the model.</div><div class="what">Getty Images — generative tools where the copy's job is honest expectation-setting for probabilistic behavior: what changed, why, and what it costs.</div></div>
+      <div class="layer rv"><div class="lyr-ico"><svg class="draw" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 40 v-18 M24 40 v-18 M40 40 v-18"/><path d="M4 24 h40 M4 32 h40" stroke="#0e5a63"/></svg></div><div class="yr">2025</div><div class="verb">Words constrain the model.</div><div class="what">Samsung Knox — guardrail messaging, refusal language, consent, and a response grammar the model itself is contractually held to.</div></div>
+      <div class="layer rv"><div class="lyr-ico"><svg class="draw" width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#161b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 8 v6 M12 14 h24"/><path d="M12 14 l-6 12 a7 7 0 0 0 12 0z M36 14 l-6 12 a7 7 0 0 0 12 0z" stroke="#0e5a63"/><path d="M24 14 v22 M16 38 h16"/></svg></div><div class="yr">2026</div><div class="verb">Words judge the model.</div><div class="what">Autodesk — evaluation rubrics, failure taxonomies, and audit workflows: deciding what "good" means, then measuring the machine against it.</div></div>
     </div>
     <p class="coda rv">Structure → conversation → explanation → constraint → judgment. I didn't move toward AI. I kept doing content design while its subject matter became AI.</p>
   </div>
@@ -1119,6 +1124,19 @@
   document.addEventListener('DOMContentLoaded',go);
   window.addEventListener('load',function(){ go(); setTimeout(go,300); setTimeout(function(){ go(); if(window.ScrollTrigger){try{ScrollTrigger.refresh()}catch(e){}} },900); });
   if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){setTimeout(go,50)});}
+})();
+</script>
+<script>
+(function(){
+  var r=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var svgs=document.querySelectorAll('svg.draw');
+  svgs.forEach(function(sv){sv.querySelectorAll('path,circle,rect').forEach(function(el){
+    try{var L=el.getTotalLength();el.style.setProperty('--len',L);}catch(e){}});});
+  if(r||!('IntersectionObserver' in window)){svgs.forEach(function(sv){sv.classList.add('drawn')});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){setTimeout(function(){e.target.classList.add('drawn')},120);io.unobserve(e.target);}
+  })},{threshold:.5});
+  svgs.forEach(function(sv){io.observe(sv)});
 })();
 </script>
 </body>
