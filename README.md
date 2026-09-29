@@ -6,6 +6,7 @@ Static portfolio for GitHub Pages. There is no application build or package inst
 - `work.html`: password page and authenticated, encrypted case-study document.
 - `portfolio.css`, `work.css`, `exhibits.css`: shared layout and interactive exhibit styling.
 - `portfolio.js`: case filters, deep links, comparisons, and the artifact viewer.
+- `home-scene.js`: the original illustration’s one-time scroll reveal, with reduced-motion support and a visible no-JavaScript fallback.
 - `staticrypt.js`: the existing StatiCrypt browser decryption engine.
 - `assets/`: typefaces and images already used on the public overview.
 
