@@ -83,4 +83,42 @@
   }
   document.getElementById('rewriteBtn')?.addEventListener('click', () => rewrite(true));
   document.getElementById('unrewriteBtn')?.addEventListener('click', () => rewrite(false));
+
+  const viewer = document.getElementById('artifact-viewer');
+  if (viewer && typeof viewer.showModal === 'function') {
+    const viewport = viewer.querySelector('.artifact-viewer-scroll');
+    const fullImage = document.createElement('img');
+    viewport.append(fullImage);
+    const zoom = document.getElementById('artifact-zoom');
+    let previousOverflow = '';
+    document.querySelectorAll('.source-artifact').forEach(figure => {
+      const open = figure.querySelector('.artifact-open');
+      open.hidden = false;
+      open.addEventListener('click', () => {
+        const source = figure.querySelector('img');
+        fullImage.src = source.src;
+        fullImage.alt = source.alt;
+        document.getElementById('artifact-viewer-title').textContent = figure.dataset.artifactTitle;
+        document.getElementById('artifact-viewer-caption').textContent = figure.querySelector('figcaption > span').textContent;
+        viewer.classList.remove('is-zoomed');
+        zoom.setAttribute('aria-pressed', 'false');
+        zoom.textContent = 'Actual size';
+        previousOverflow = document.documentElement.style.overflow;
+        document.documentElement.style.overflow = 'hidden';
+        viewer.showModal();
+        viewport.scrollTop = viewport.scrollLeft = 0;
+      });
+    });
+    zoom.addEventListener('click', () => {
+      const enlarged = viewer.classList.toggle('is-zoomed');
+      zoom.setAttribute('aria-pressed', String(enlarged));
+      zoom.textContent = enlarged ? 'Fit to width' : 'Actual size';
+    });
+    document.getElementById('artifact-close').addEventListener('click', () => viewer.close());
+    viewer.addEventListener('click', event => { if (event.target === viewer) viewer.close(); });
+    viewer.addEventListener('close', () => {
+      document.documentElement.style.overflow = previousOverflow;
+      fullImage.removeAttribute('src');
+    });
+  }
 })();
