@@ -4,6 +4,7 @@
   const links = [...document.querySelectorAll('[data-index-tags]')];
   const filters = [...document.querySelectorAll('[data-filter]')];
   const status = document.getElementById('filter-status');
+  const description = document.getElementById('filter-description');
   let current = 'featured';
   function matches(tags, filter) { return filter === 'all' || tags.split(' ').includes(filter); }
   function filterCases(filter) {
@@ -12,7 +13,12 @@
     links.forEach(el => { el.hidden = !matches(el.dataset.indexTags, filter); });
     filters.forEach(el => el.setAttribute('aria-pressed', String(el.dataset.filter === filter)));
     const total = cases.filter(el => !el.hidden).length;
-    const label = filters.find(el => el.dataset.filter === filter)?.textContent || 'All cases';
+    const selected = filters.find(el => el.dataset.filter === filter);
+    const label = selected?.textContent || 'All work';
+    if (description) {
+      description.textContent = selected?.dataset.description || '';
+      description.hidden = !description.textContent;
+    }
     if (status) status.textContent = `${label} · ${total} case ${total === 1 ? 'study' : 'studies'}`;
   }
   function followHash(scroll = true) {
