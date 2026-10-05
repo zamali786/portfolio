@@ -5,14 +5,19 @@
   const filters = [...document.querySelectorAll('[data-filter]')];
   const status = document.getElementById('filter-status');
   const description = document.getElementById('filter-description');
+  const intro = document.querySelector('.work-intro');
+  const index = document.getElementById('case-index');
+  const archive = document.querySelector('.archive-wrap');
+  const experience = document.getElementById('ledger');
+  const originalTitle = document.title;
   let current = 'featured';
   function matches(tags, filter) { return filter === 'all' || tags.split(' ').includes(filter); }
   function filterCases(filter) {
     current = filter;
-    cases.forEach(el => { el.hidden = !matches(el.dataset.caseTags, filter); });
+    cases.forEach(el => { el.hidden = true; });
     links.forEach(el => { el.hidden = !matches(el.dataset.indexTags, filter); });
     filters.forEach(el => el.setAttribute('aria-pressed', String(el.dataset.filter === filter)));
-    const total = cases.filter(el => !el.hidden).length;
+    const total = links.filter(el => !el.hidden).length;
     const selected = filters.find(el => el.dataset.filter === filter);
     const label = selected?.textContent || 'All work';
     if (description) {
@@ -21,23 +26,53 @@
     }
     if (status) status.textContent = `${label} · ${total} case ${total === 1 ? 'study' : 'studies'}`;
   }
+  function showLibrary() {
+    filterCases(current);
+    [intro, index, archive, experience].forEach(el => { if (el) el.hidden = false; });
+    document.body.classList.remove('reading-case');
+    document.title = originalTitle;
+    cases.forEach(el => el.querySelector('h2')?.removeAttribute('aria-level'));
+  }
   function followHash(scroll = true) {
     let id;
     try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
     // Keep links shared from the previous portfolio useful.
     const aliases = { studies: 'case-index', filter: 'case-index', stack: 'ledger', principles: 'ledger' };
+    if (id.startsWith('browse-')) {
+      const filter = id.slice(7);
+      if (filters.some(button => button.dataset.filter === filter)) current = filter;
+      showLibrary();
+      if (scroll) requestAnimationFrame(() => index?.scrollIntoView({ behavior: 'instant', block: 'start' }));
+      return;
+    }
     const target = document.getElementById(aliases[id] || id);
-    if (!target) return;
+    if (!target) { showLibrary(); return; }
     const section = target.closest('[data-case-tags]');
-    if (section?.hidden) filterCases('all');
+    if (section) {
+      cases.forEach(el => { el.hidden = el !== section; });
+      [intro, index, archive, experience].forEach(el => { if (el) el.hidden = true; });
+      document.body.classList.add('reading-case');
+      const heading = section.querySelector('h2');
+      heading?.setAttribute('aria-level', '1');
+      document.title = `${heading?.textContent} — Zameer Ali`;
+      if (scroll) heading?.focus({ preventScroll: true });
+    } else {
+      showLibrary();
+      if (scroll && target === index) index.focus({ preventScroll: true });
+    }
     for (let parent = target.parentElement; parent; parent = parent.parentElement) {
       if (parent.tagName === 'DETAILS') parent.open = true;
     }
     if (scroll) requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant', block: 'start' }));
   }
   document.querySelector('.filter-list')?.removeAttribute('hidden');
-  filters.forEach(button => button.addEventListener('click', () => filterCases(button.dataset.filter)));
-  if (cases.length) { filterCases(current); followHash(); }
+  filters.forEach(button => button.addEventListener('click', () => {
+    current = button.dataset.filter;
+    showLibrary();
+    // Shareable capability views; opening a case then uses normal browser history.
+    window.history.replaceState(null, '', `#browse-${current}`);
+  }));
+  if (cases.length) followHash();
   window.addEventListener('hashchange', () => followHash());
   // Fonts can change layout after a password has replaced the document.
   let userMoved = false;

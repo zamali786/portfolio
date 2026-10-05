@@ -1,0 +1,54 @@
+/* Shared portfolio presentation: overview, library, and focused case reading. */
+.portfolio-home .home-intro{padding-top:64px;padding-bottom:42px}
+.portfolio-home .home-intro h1{font-size:clamp(44px,5.4vw,72px);line-height:1.08;max-width:15em}
+.portfolio-home .home-intro .intro-copy{max-width:43em;font-size:20px}
+.role-note{font-size:14px;color:var(--muted);line-height:1.6;margin:22px 0 0}
+.portfolio-home .scene-band{padding-top:0}
+.portfolio-home .scene-illustration{max-height:400px;object-fit:contain}
+.project-status{display:block;color:var(--muted);font-size:13px;margin-top:13px}
+.preview-caption{display:block;font-size:12px;color:var(--muted);margin:-12px 0 22px}
+.archive-more>summary{cursor:pointer;color:var(--accent);font-size:17px;font-weight:600;padding:12px 0}
+.archive-more>div{padding-top:28px}
+.project-image{border-radius:8px}
+.project-heading .eyebrow{max-width:85%;font-size:12px}
+.project h3{font-size:clamp(27px,2.5vw,34px);max-width:21em}
+.project-link>.text-link{display:inline-block;padding:6px 0}
+.practice-band{display:grid;grid-template-columns:1.15fr 1fr;gap:80px;padding-block:60px;border-top:1px solid var(--rule)}
+.practice-band>div>p:not(.eyebrow){color:var(--muted);max-width:39em}
+.practice-examples p{padding:20px 0;margin:0;border-top:1px solid var(--rule);font-size:16px;color:var(--muted)}
+.practice-examples strong{display:block;color:var(--ink);font-weight:600;font-size:18px;margin-bottom:8px}
+.portfolio-work .work-intro{padding-bottom:15px}
+.portfolio-work .work-intro h1{font-size:clamp(42px,5vw,66px)}
+.portfolio-work .case-index{gap:20px;grid-template-columns:1fr 1fr}
+.portfolio-work .case-index .case-card{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:6px;background:#fff;padding:26px;transition:border-color .18s,background .18s}
+.portfolio-work .case-index .case-card:hover{border-color:#638b88;background:#f7faf9}
+.portfolio-work .case-index .case-card strong{font-size:27px;line-height:1.2;margin:12px 0 16px;max-width:25em}
+.portfolio-work .case-index .case-summary{font-size:15px;line-height:1.65;margin-bottom:20px;max-width:44em}
+.portfolio-work .case-index .case-delivery{font-size:12px;font-weight:600;color:var(--accent);margin-top:auto;margin-bottom:17px}
+.portfolio-work .case-index .case-card-footer{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--rule);padding-top:15px}
+.portfolio-work .case-index .case-card-footer>span{font-size:12px;line-height:1.5}
+.portfolio-work .case-index .case-card-footer>span:last-child{color:var(--accent);white-space:nowrap}
+.filter-description{min-height:2em;margin-bottom:10px}
+.portfolio-work .case-section{border-top:0;padding-top:30px;background:#fff}
+.portfolio-work .reader-back{display:inline-block;font-size:14px;color:var(--accent);padding:12px 0;margin-bottom:24px;text-underline-offset:5px}
+.portfolio-work .case-section h2{max-width:20em;font-size:clamp(34px,4.4vw,56px);line-height:1.12}
+.case-lede{font-size:20px;line-height:1.65;color:var(--muted);max-width:65ch;margin-bottom:30px}
+.case-facts{max-width:900px}
+.case-prose{max-width:78ch}
+.case-prose>h3{font-size:20px;line-height:1.35;margin-top:34px}
+.case-jump{display:flex;align-items:center;flex-wrap:wrap;gap:10px 22px;padding:16px 0;border-bottom:1px solid var(--rule);max-width:900px;margin-bottom:30px;font-size:14px}
+.case-jump>span{color:var(--muted)}
+.case-jump a{color:var(--accent);text-underline-offset:4px;padding:5px 0}
+.evidence-details{max-width:900px;border-block:1px solid var(--rule);padding:10px 0;margin:32px 0}
+.portfolio-work .evidence-details>summary{padding:10px 0;cursor:pointer;color:var(--accent);font-weight:600;font-size:14px}
+.evidence-details .evidence-note{border:0;padding:0;margin:12px 0;font-size:14px}
+.related-cases{max-width:1000px;border-top:1px solid var(--rule);margin-top:45px;padding-top:26px}
+.related-cases>div{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.related-cases a{display:block;font-size:17px;padding:20px;background:var(--soft);border-radius:5px;text-underline-offset:5px}
+.sample-link{color:var(--accent);text-decoration:underline}
+.portfolio-work .case-back{min-height:44px;padding-top:10px}
+.portfolio-work .case-index .case-card:focus-visible,.related-cases a:focus-visible{outline-offset:3px}
+.portfolio-work .case-section h2:focus,.portfolio-work #case-index:focus{outline:none}
+@media(max-width:800px){.practice-band{gap:36px}.portfolio-work .case-index .case-card{padding:22px}.portfolio-work .case-index .case-card strong{font-size:25px}.portfolio-work .case-index .case-card-footer{flex-direction:column;gap:8px}}
+@media(max-width:600px){.portfolio-home .home-intro{padding-top:36px;padding-bottom:32px}.portfolio-home .home-intro h1{font-size:43px}.portfolio-home .home-intro .intro-copy{font-size:18px}.role-note{font-size:13px}.practice-band{grid-template-columns:1fr;gap:24px;padding-block:42px}.portfolio-work .case-index{grid-template-columns:1fr;gap:16px}.portfolio-work .case-index .case-card strong{font-size:26px}.portfolio-work .case-index .case-card-footer{flex-direction:row}.case-lede{font-size:18px}.portfolio-work .reader-back{margin-bottom:18px}.case-jump{gap:8px 18px}.case-jump>span{width:100%}.related-cases>div{grid-template-columns:1fr}.portfolio-work .case-section h2{font-size:36px}.site-nav>div{gap:14px}.site-nav>div a{min-height:44px;display:inline-flex;align-items:center}.site-nav{padding-block:8px}.project-status{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.portfolio-work .case-index .case-card{transition:none}}
